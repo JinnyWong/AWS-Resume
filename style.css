@@ -1,0 +1,139 @@
+/* Reset and base styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  scroll-behavior: smooth;
+  background: #f4f4f4;
+  color: #222;
+}
+
+/* Header with parallax background */
+.parallax-header {
+  background-image: url('./imgs/fudan-background.png');
+  height: 100vh;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  color: black;
+  text-align: center; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 20px;
+  background-blend-mode: lighten
+}
+
+.name-title {
+  font-size: 3em;
+  margin: 0.2em 0 0;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  color: dimgray;
+  margin: 0.5em 0 1em;
+  font-weight: 700;
+}
+
+.profile-pic-container {
+  margin-top: 40px;
+}
+
+.profile-pic {
+  width: 160px;
+  height: 160px;
+  border-radius: 20px;
+  border: 3px solid white;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Sticky navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  padding: 1em 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.navbar a:hover {
+  color: #007acc;
+}
+
+/* Sections */
+.content-section {
+  padding: 80px 40px;
+  background-color: white;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+h2 {
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 1.6em;
+}
+
+/* Two-column layout for sections */
+.section-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2em;
+  align-items: start;
+  margin-top: 1em;
+}
+
+.left-column {
+  font-size: 1em;
+}
+
+.right-column {
+  text-align: right;
+  font-size: 0.95em;
+  color: #555;
+}
+
+/* Parallax section styling */
+.parallax {
+  background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+  background-attachment: fixed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .right-column {
+    text-align: left;
+    margin-top: 1em;
+  }
+
+  .navbar {
+    flex-wrap: wrap;
+    gap: 1em;
+  }
+
+  .name-title {
+    font-size: 2.2em;
+  }
+
+  .subtitle {
+    font-size: 1em;
+  }
+}
