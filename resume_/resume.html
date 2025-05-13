@@ -1,0 +1,2547 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 设置页面语言为英语 -->
+
+<head>
+    <!-- 包含文档的元数据，如字符编码、视口设置、标题等 -->
+    <meta charset="UTF-8">
+    <!-- 设置文档的字符编码为 UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 配置视口，使页面在不同设备上正确显示，初始缩放比例为 1 -->
+    <title>Jonathan Blake - Resume</title>
+    <!-- 设置页面在浏览器标签页显示的标题 -->
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <!-- 引入 Tailwind CSS 库的 JavaScript 文件 -->
+    <script>
+        tailwind.config = {
+            // 自定义 Tailwind CSS 的主题配置
+            theme: {
+                extend: {
+                    // 扩展默认主题，添加自定义颜色和边框圆角值
+                    colors: {
+                        // 自定义颜色变量
+                        primary: '#3b82f6',
+                        secondary: '#10b981'
+                    },
+                    borderRadius: {
+                        // 自定义边框圆角值
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- 预先建立与 Google Fonts 服务器的连接，提升字体加载速度 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- 预先建立与 Google Fonts 静态资源服务器的连接，支持跨域请求 -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <!-- 引入 Pacifico 字体 -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- 引入 Inter 和 Poppins 字体，包含不同字重 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <!-- 引入 Remix Icon 图标库的样式文件 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <!-- 引入 ECharts 图表库的 JavaScript 文件 -->
+
+    <style>
+        /* 强制所有以 ri- 开头的类名的伪元素内容为 \f3c2，可能用于图标替换 */
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        /* 全局样式，设置页面字体为 Inter 无衬线字体，同时使页面滚动具有平滑效果 */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* 定义类名为 font-poppins 的元素使用 Poppins 无衬线字体 */
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* 技能进度条样式，设置宽度变化的过渡动画，时长 1.5 秒，缓动函数为 ease-in-out */
+        .skill-bar {
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* 时间轴节点样式，使用伪元素创建一个圆形节点 */
+        .timeline-dot::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            left: -8px;
+            top: 0;
+        }
+
+        /* 时间轴线样式，使用伪元素创建一条垂直线 */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: #e5e7eb;
+            left: 0;
+            top: 0;
+        }
+
+        /* 幻灯片样式，设置幻灯片切换时的过渡动画，时长 0.5 秒，缓动函数为 ease */
+        .slide {
+            transition: transform 0.5s ease;
+        }
+
+        /* 深色模式下的全局样式，设置背景颜色和文字颜色 */
+        .dark-mode {
+            background-color: #1f2937;
+            color: #f3f4f6;
+        }
+
+        /* 深色模式下卡片组件的样式，设置背景颜色和边框颜色 */
+        .dark-mode .card {
+            background-color: #374151;
+            border-color: #4b5563;
+        }
+
+        /* 深色模式下导航链接的样式，设置文字颜色 */
+        .dark-mode .nav-link {
+            color: #f3f4f6;
+        }
+
+        /* 深色模式下激活状态的导航链接样式，设置文字颜色 */
+        .dark-mode .nav-link.active {
+            color: #3b82f6;
+        }
+
+        /* 深色模式下输入框的样式，设置背景颜色、边框颜色和文字颜色 */
+        .dark-mode .input-field {
+            background-color: #374151;
+            border-color: #4b5563;
+            color: #f3f4f6;
+        }
+
+        /* 移除 number 类型输入框的上下箭头 */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* 版本切换进入动画的初始状态，设置透明度为 0 并向下偏移 20px */
+        .version-enter {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* 版本切换进入动画的活动状态，设置透明度为 1 并回到初始位置，动画时长 0.5 秒 */
+        .version-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        /* 版本切换退出动画的初始状态，设置透明度为 1 */
+        .version-exit {
+            opacity: 1;
+        }
+
+        /* 版本切换退出动画的活动状态，设置透明度为 0，动画时长 0.5 秒 */
+        .version-exit-active {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        /* 鼠标悬停在个人头像容器上时，修改头像边框颜色并放大 1.05 倍 */
+        .profile-img-container:hover .profile-img-border {
+            border-color: #3b82f6;
+            transform: scale(1.05);
+        }
+
+        /* 个人头像边框样式，设置所有属性变化的过渡动画，时长 0.3 秒，缓动函数为 ease */
+        .profile-img-border {
+            transition: all 0.3s ease;
+        }
+    </style>
+
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+    <!-- Navbar -->
+    <nav id="navbar" class="sticky top-0 z-50 bg-white shadow-md transition-all duration-300">
+        <!-- 容器部分，设置内容居中，左右内边距 4，上下内边距 3，使用 flex 布局并水平两端对齐，垂直居中 -->
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- 网站 logo 部分，使用 Pacifico 字体，文字颜色为自定义的 primary 颜色 -->
+            <div class="text-xl font-['Pacifico'] text-primary">logo</div>
+            <!-- 导航链接部分，在中等屏幕及以上显示，职业版本导航 -->
+            <div class="hidden md:flex space-x-6 career-nav">
+                <!-- 导航链接，点击跳转到页面的 #home 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#home" class="nav-link font-medium hover:text-primary transition-colors">Home</a>
+                <!-- 导航链接，点击跳转到页面的 #about 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#about" class="nav-link font-medium hover:text-primary transition-colors">About Me</a>
+                <!-- 导航链接，点击跳转到页面的 #education 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#education" class="nav-link font-medium hover:text-primary transition-colors">Education</a>
+                <!-- 导航链接，点击跳转到页面的 #experience 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#experience" class="nav-link font-medium hover:text-primary transition-colors">Experience</a>
+                <!-- 导航链接，点击跳转到页面的 #projects 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#projects" class="nav-link font-medium hover:text-primary transition-colors">Projects</a>
+                <!-- 导航链接，点击跳转到页面的 #contact-section 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#contact-section" class="nav-link font-medium hover:text-primary transition-colors">Contact</a>
+            </div>
+            <!-- 导航链接部分，在中等屏幕及以上显示，学术版本导航，初始隐藏 -->
+            <div class="hidden md:flex space-x-6 academic-nav" style="display: none;">
+                <!-- 导航链接，点击跳转到页面的 #home 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#home" class="nav-link font-medium hover:text-primary transition-colors">Home</a>
+                <!-- 导航链接，点击跳转到页面的 #about 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#about" class="nav-link font-medium hover:text-primary transition-colors">About Me</a>
+                <!-- 导航链接，点击跳转到页面的 #news 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#news" class="nav-link font-medium hover:text-primary transition-colors">News</a>
+                <!-- 导航链接，点击跳转到页面的 #publications 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#publications"
+                    class="nav-link font-medium hover:text-primary transition-colors">Publications</a>
+                <!-- 导航链接，点击跳转到页面的 #talks 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#talks" class="nav-link font-medium hover:text-primary transition-colors">Talks</a>
+                <!-- 导航链接，点击跳转到页面的 #group 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#group" class="nav-link font-medium hover:text-primary transition-colors">Group</a>
+                <!-- 导航链接，点击跳转到页面的 #awards 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#awards" class="nav-link font-medium hover:text-primary transition-colors">Awards</a>
+                <!-- 导航链接，点击跳转到页面的 #contact 位置，鼠标悬停文字颜色变为 primary 颜色 -->
+                <a href="#contact" class="nav-link font-medium hover:text-primary transition-colors">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <!-- 仅在中等屏幕以下显示的移动菜单按钮容器 -->
+            <div class="md:hidden">
+                <!-- 用于切换移动菜单显示与隐藏的按钮，点击事件可通过 JavaScript 绑定 -->
+                <button id="menu-toggle" class="w-10 h-10 flex items-center justify-center text-gray-700">
+                    <!-- 显示菜单图标，使用 Remix Icon 图标库 -->
+                    <i class="ri-menu-line ri-lg"></i>
+                </button>
+            </div>
+            <!-- Control Buttons -->
+            <!-- 仅在中等屏幕及以上显示的控制按钮容器，使用 flex 布局 -->
+            <div class="hidden md:flex items-center space-x-4">
+                <!-- Version Toggle -->
+                <!-- 版本切换按钮的相对定位容器，用于定位下拉菜单 -->
+                <div class="relative">
+                    <!-- 版本切换按钮，点击可显示版本选择下拉菜单 -->
+                    <button id="version-toggle"
+                        class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-button text-sm font-medium flex items-center space-x-1 whitespace-nowrap">
+                        <!-- 显示当前选中的版本文本，默认显示 "Career" -->
+                        <span id="version-text">Career</span>
+                        <!-- 显示向下箭头图标，提示用户点击有下拉菜单 -->
+                        <i class="ri-arrow-down-s-line ri-lg"></i>
+                    </button>
+                    <!-- 版本选择下拉菜单，绝对定位在版本切换按钮下方，初始隐藏 -->
+                    <div id="version-dropdown" class="absolute right-0 mt-2 w-36 bg-white shadow-lg rounded hidden">
+                        <!-- 下拉菜单的内容容器，设置上下内边距 -->
+                        <div class="py-1">
+                            <!-- 选择职业版本的按钮，点击可切换到职业版本，高亮显示 -->
+                            <button id="career-btn"
+                                class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 font-medium text-primary">Career</button>
+                            <!-- 选择学术版本的按钮，点击可切换到学术版本 -->
+                            <button id="academic-btn"
+                                class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Academic</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Language Toggle -->
+                <!-- 语言切换按钮，点击可切换页面语言，初始显示为英文标识 -->
+                <button id="lang-toggle"
+                    class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-button text-sm font-medium whitespace-nowrap">EN</button>
+                <!-- Theme Toggle -->
+                <!-- 主题切换按钮，点击可切换页面主题（如浅色主题和深色主题），初始显示太阳图标代表浅色主题 -->
+                <button id="theme-toggle"
+                    class="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center">
+                    <!-- 太阳图标，使用 Remix Icon 图标库 -->
+                    <i class="ri-sun-line ri-lg"></i>
+                </button>
+
+            </div>
+        </div>
+        <!-- 移动端菜单，在中等屏幕以下显示，初始隐藏 -->
+        <div id="mobile-menu" class="md:hidden bg-white shadow-md hidden">
+            <!-- 职业版本移动端导航链接 -->
+            <div class="px-4 py-3 space-y-2 career-mobile-nav">
+                <a href="#home" class="block py-2 hover:text-primary transition-colors">Home</a>
+                <a href="#about" class="block py-2 hover:text-primary transition-colors">About Me</a>
+                <a href="#education" class="block py-2 hover:text-primary transition-colors">Education</a>
+                <a href="#experience" class="block py-2 hover:text-primary transition-colors">Experience</a>
+                <a href="#projects" class="block py-2 hover:text-primary transition-colors">Projects</a>
+                <a href="#contact" class="block py-2 hover:text-primary transition-colors">Contact</a>
+            </div>
+            <!-- 学术版本移动端导航链接，初始隐藏 -->
+            <div class="px-4 py-3 space-y-2 academic-mobile-nav" style="display: none;">
+                <a href="#home" class="block py-2 hover:text-primary transition-colors">Home</a>
+                <a href="#about" class="block py-2 hover:text-primary transition-colors">About Me</a>
+                <a href="#news" class="block py-2 hover:text-primary transition-colors">News</a>
+                <a href="#publications" class="block py-2 hover:text-primary transition-colors">Publications</a>
+                <a href="#talks" class="block py-2 hover:text-primary transition-colors">Talks</a>
+                <a href="#group" class="block py-2 hover:text-primary transition-colors">Group</a>
+                <a href="#awards" class="block py-2 hover:text-primary transition-colors">Awards</a>
+                <a href="#contact" class="block py-2 hover:text-primary transition-colors">Contact</a>
+            </div>
+
+            <!-- 移动端控制按钮容器，设置内边距、顶部边框，使用 flex 布局并水平两端对齐 -->
+            <div class="px-4 py-3 border-t flex justify-between">
+                <!-- Mobile Version Toggle -->
+                <!-- 移动端版本切换按钮，点击可切换职业版和学术版，初始显示为职业版 -->
+                <button id="mobile-version-toggle"
+                    class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-button text-sm font-medium whitespace-nowrap">Career</button>
+                <!-- Mobile Language Toggle -->
+                <!-- 移动端语言切换按钮，点击可切换页面语言，初始显示为英文标识 -->
+                <button id="mobile-lang-toggle"
+                    class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-button text-sm font-medium whitespace-nowrap">EN</button>
+                <!-- Mobile Theme Toggle -->
+                <!-- 移动端主题切换按钮，点击可切换页面主题（如浅色主题和深色主题），初始显示太阳图标代表浅色主题 -->
+                <button id="mobile-theme-toggle"
+                    class="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center">
+                    <!-- 太阳图标，使用 Remix Icon 图标库 -->
+                    <i class="ri-sun-line ri-lg"></i>
+                </button>
+            </div>
+
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <!-- 主内容区域，设置内容居中，左右内边距 4，上下内边距 8 -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Career Version -->
+        <!-- 职业版本内容容器 -->
+        <div id="career-version">
+            <!-- HOME Section -->
+            <!-- 主页板块，设置上下内边距，在中等屏幕及以上增大上下内边距 -->
+            <section id="home" class="py-16 md:py-24">
+                <!-- 使用 flex 布局，在中等屏幕及以上水平排列，设置元素间间距 -->
+                <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+                    <!-- Left Column - Profile Image & Social Links -->
+                    <!-- 左侧列，用于显示个人头像和社交链接，在中等屏幕及以上占容器宽度的三分之一，内容居中排列 -->
+                    <div class="w-full md:w-1/3 flex flex-col items-center">
+                        <!-- 个人头像容器，设置底部边距 -->
+                        <div class="profile-img-container mb-6">
+                            <!-- 个人头像边框，设置为圆形，内边距 2，边框宽度 2，边框颜色为浅灰色 -->
+                            <div class="profile-img-border rounded-full p-2 border-2 border-gray-200">
+                                <!-- 个人头像图片，设置为圆形，宽度和高度为 48，图片填充模式为覆盖 -->
+                                <img src="assets/prof.png" alt="Profile Image"
+                                    class="rounded-full w-48 h-48 object-cover">
+                            </div>
+                        </div>
+                        <!-- 社交链接容器，设置顶部边距 4，链接间水平间距 4 -->
+                        <div class="flex space-x-4 mt-4">
+                            <!-- 谷歌学术链接，点击后在新窗口打开，鼠标悬停时背景颜色变深 -->
+                            <a href="https://scholar.google.com" target="_blank"
+                                class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                <!-- 谷歌图标，使用 Remix Icon 图标库 -->
+                                <i class="ri-google-fill ri-lg"></i>
+                            </a>
+                            <!-- LinkedIn 链接，点击后在新窗口打开，鼠标悬停时背景颜色变深 -->
+                            <a href="https://linkedin.com" target="_blank"
+                                class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                <!-- LinkedIn 图标，使用 Remix Icon 图标库 -->
+                                <i class="ri-linkedin-fill ri-lg"></i>
+                            </a>
+                            <!-- GitHub 链接，点击后在新窗口打开，鼠标悬停时背景颜色变深 -->
+                            <a href="https://github.com" target="_blank"
+                                class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                <!-- GitHub 图标，使用 Remix Icon 图标库 -->
+                                <i class="ri-github-fill ri-lg"></i>
+                            </a>
+                            <!-- Twitter 链接，点击后在新窗口打开，鼠标悬停时背景颜色变深 -->
+                            <a href="https://twitter.com" target="_blank"
+                                class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                <!-- Twitter 图标，使用 Remix Icon 图标库 -->
+                                <i class="ri-twitter-fill ri-lg"></i>
+                            </a>
+                            <!-- Instagram 链接，点击后在新窗口打开，鼠标悬停时背景颜色变深 -->
+                            <a href="https://instagram.com" target="_blank"
+                                class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                <!-- Instagram 图标，使用 Remix Icon 图标库 -->
+                                <i class="ri-instagram-fill ri-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Right Column - Personal Info -->
+                    <!-- 右侧列，用于显示个人信息，在中等屏幕及以上占容器宽度的三分之二 -->
+                    <div class="w-full md:w-2/3">
+                        <!-- 个人姓名，设置字体大小、粗细、底部边距、全部大写显示和字体样式，支持中英文切换 -->
+                        <h1 class="text-4xl md:text-5xl font-bold mb-3 uppercase font-poppins" data-en="Jonathan Blake"
+                            data-zh="乔纳森·布莱克">Jonathan Blake</h1>
+                        <!-- 个人职位，设置字体大小、文字颜色和底部边距，支持中英文切换 -->
+                        <p class="text-xl text-gray-600 mb-4" data-en="Senior Software Engineer at Google"
+                            data-zh="谷歌高级软件工程师">Senior Software Engineer at Google</p>
+                        <!-- 个人邮箱，设置文字颜色和底部边距，支持中英文切换 -->
+                        <p class="text-gray-600 mb-2" data-en="Email: jblake@example.com"
+                            data-zh="邮箱: jblake@example.com">Email: jblake@example.com</p>
+                        <!-- 个人简介，设置字体大小、最大宽度和底部边距，支持中英文切换 -->
+                        <p class="text-lg mb-8 max-w-2xl"
+                            data-en="I'm a passionate software engineer with 8+ years of experience specializing in machine learning and full-stack development. Currently focused on building scalable AI solutions for enterprise applications."
+                            data-zh="我是一名充满热情的软件工程师，拥有8年以上的机器学习和全栈开发经验。目前专注于为企业应用构建可扩展的人工智能解决方案。">I'm a passionate
+                            software engineer with 8+ years of experience specializing in machine learning and
+                            full-stack development. Currently focused on building scalable AI solutions for enterprise
+                            applications.</p>
+                        <!-- 操作按钮容器，设置按钮换行和间距 -->
+                        <div class="flex flex-wrap gap-4">
+                            <a href="assets/cv.pdf" download="CV.pdf" class=" px-6 py-3 bg-primary text-white rounded-button font-medium hover:bg-blue-600
+                                transition-colors flex items-center whitespace-nowrap" data-en="Download CV"
+                                data-zh="下载简历">
+                                <i class="ri-download-line ri-lg mr-2"></i> Download CV
+                            </a>
+                            <a href="#contact-section"
+                                class="px-6 py-3 bg-white border border-gray-300 rounded-button font-medium hover:bg-gray-100 transition-colors flex items-center whitespace-nowrap"
+                                data-en="Contact Me" data-zh="联系我">
+                                <i class="ri-mail-line ri-lg mr-2"></i> Contact Me
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABOUT ME Section -->
+            <section id="about" class="py-16 bg-white rounded-lg shadow-sm">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold mb-12 text-center font-poppins" data-en="About Me" data-zh="关于我">About
+                        Me</h2>
+                    <div class="flex flex-col md:flex-row gap-10">
+                        <!-- Left Column - Work Experience & Tags -->
+                        <div class="w-full md:w-1/2 px-6">
+                            <h3 class="text-xl font-semibold mb-6" data-en="Professional Summary" data-zh="职业概述">
+                                Professional Summary</h3>
+                            <p class="mb-6"
+                                data-en="I've worked across various domains in tech, from startups to large enterprises. My journey includes roles as a Machine Learning Engineer at TechVision (2018-2020), Senior Developer at DataSphere (2020-2022), and now as a Senior Software Engineer at Google since 2022."
+                                data-zh="我曾在科技领域的各个领域工作，从初创公司到大型企业。我的职业生涯包括在TechVision担任机器学习工程师(2018-2020)，在DataSphere担任高级开发人员(2020-2022)，以及自2022年以来在谷歌担任高级软件工程师。">
+                                I've worked across various domains in tech, from startups to large enterprises. My
+                                journey includes roles as a Machine Learning Engineer at TechVision (2018-2020), Senior
+                                Developer at DataSphere (2020-2022), and now as a Senior Software Engineer at Google
+                                since 2022.</p>
+                            <h3 class="text-xl font-semibold mb-4" data-en="Specialties" data-zh="专长领域">Specialties</h3>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Machine
+                                    Learning</span>
+                                <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Full-Stack
+                                    Development</span>
+                                <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Cloud
+                                    Architecture</span>
+                                <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Data
+                                    Science</span>
+                                <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">DevOps</span>
+                                <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">System
+                                    Design</span>
+                                <span class="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Project
+                                    Management</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm">API
+                                    Development</span>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-4" data-en="Languages" data-zh="语言能力">Languages</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span data-en="English" data-zh="英语">English</span>
+                                    <span data-en="Native" data-zh="母语">Native</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span data-en="Chinese" data-zh="中文">Chinese</span>
+                                    <span data-en="Professional" data-zh="专业水平">Professional</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span data-en="Spanish" data-zh="西班牙语">Spanish</span>
+                                    <span data-en="Intermediate" data-zh="中级">Intermediate</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Right Column - Skills -->
+                        <div class="w-full md:w-1/2 px-6">
+                            <h3 class="text-xl font-semibold mb-6" data-en="Technical Skills" data-zh="技术能力">Technical
+                                Skills</h3>
+                            <!-- 技能列表容器，设置子元素垂直间距为 6 -->
+                            <div class="space-y-6">
+                                <!-- 单个技能展示块 -->
+                                <div>
+                                    <!-- 技能名称和熟练度展示行，使用 flex 布局并两端对齐，底部边距为 1 -->
+                                    <div class="flex justify-between mb-1">
+                                        <!-- 技能名称，支持中英文切换 -->
+                                        <span data-en="Machine Learning" data-zh="机器学习">Machine Learning</span>
+                                        <!-- 技能熟练度百分比 -->
+                                        <span>95%</span>
+                                    </div>
+                                    <!-- 技能进度条背景容器，设置高度为 2，背景颜色为灰色，圆角为全角 -->
+                                    <div class="h-2 bg-gray-200 rounded-full">
+                                        <!-- 技能进度条，高度占满父容器，背景颜色为自定义 primary 颜色，圆角为全角，初始宽度为 0%，实际宽度通过 data-width 属性定义 -->
+                                        <div class="skill-bar h-full bg-primary rounded-full" style="width: 0%;"
+                                            data-width="95%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span data-en="Python" data-zh="Python">Python</span>
+                                        <span>90%</span>
+                                    </div>
+                                    <div class="h-2 bg-gray-200 rounded-full">
+                                        <div class="skill-bar h-full bg-primary rounded-full" style="width: 0%;"
+                                            data-width="90%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span data-en="JavaScript/TypeScript"
+                                            data-zh="JavaScript/TypeScript">JavaScript/TypeScript</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div class="h-2 bg-gray-200 rounded-full">
+                                        <div class="skill-bar h-full bg-primary rounded-full" style="width: 0%;"
+                                            data-width="85%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span data-en="Cloud Services (AWS/GCP)" data-zh="云服务 (AWS/GCP)">Cloud Services
+                                            (AWS/GCP)</span>
+                                        <span>80%</span>
+                                    </div>
+                                    <div class="h-2 bg-gray-200 rounded-full">
+                                        <div class="skill-bar h-full bg-primary rounded-full" style="width: 0%;"
+                                            data-width="80%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span data-en="Web Development" data-zh="Web 开发">Web Development</span>
+                                        <span>88%</span>
+                                    </div>
+                                    <div class="h-2 bg-gray-200 rounded-full">
+                                        <div class="skill-bar h-full bg-primary rounded-full" style="width: 0%;"
+                                            data-width="88%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span data-en="Database Design" data-zh="数据库设计">Database Design</span>
+                                        <span>75%</span>
+                                    </div>
+                                    <div class="h-2 bg-gray-200 rounded-full">
+                                        <div class="skill-bar h-full bg-primary rounded-full" style="width: 0%;"
+                                            data-width="75%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span data-en="DevOps" data-zh="DevOps">DevOps</span>
+                                        <span>70%</span>
+                                    </div>
+                                    <div class="h-2 bg-gray-200 rounded-full">
+                                        <div class="skill-bar h-full bg-primary rounded-full" style="width: 0%;"
+                                            data-width="70%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- EDUCATION Section -->
+            <section id="education" class="py-16">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold mb-12 text-center font-poppins" data-en="Education" data-zh="教育背景">
+                        Education</h2>
+                    <div class="relative max-w-3xl mx-auto pl-8 timeline-line">
+                        <!-- PhD 学历信息块 -->
+                        <div class="mb-12 relative timeline-dot">
+                            <!-- 学历信息卡片，设置背景为白色，圆角边框，阴影效果，左侧外边距 6，内边距 6 -->
+                            <div class="bg-white rounded-lg shadow-sm p-6 ml-6">
+                                <!-- 学位名称，设置字体大小为 xl，字体加粗，底部外边距 1，支持中英文切换 -->
+                                <h3 class="text-xl font-semibold mb-1" data-en="Ph.D. in Computer Science"
+                                    data-zh="计算机科学博士">Ph.D. in Computer Science</h3>
+                                <!-- 毕业院校，设置文字颜色为自定义 primary 颜色，字体加粗，底部外边距 1，支持中英文切换 -->
+                                <p class="text-primary font-medium mb-1" data-en="Stanford University" data-zh="斯坦福大学">
+                                    Stanford University</p>
+                                <!-- 就读时间和地点，设置文字颜色为灰色，底部外边距 3，支持中英文切换 -->
+                                <p class="text-gray-600 mb-3" data-en="2015 - 2018 | California, USA"
+                                    data-zh="2015 - 2018 | 美国加利福尼亚">2015 - 2018 | California, USA</p>
+                                <!-- 专业方向和论文信息，支持中英文切换 -->
+                                <p data-en="Specialized in Machine Learning and Artificial Intelligence. Dissertation on 'Deep Learning Approaches for Natural Language Understanding in Low-Resource Settings'."
+                                    data-zh="专攻机器学习和人工智能。论文题目为“低资源环境下自然语言理解的深度学习方法”。">Specialized in Machine Learning
+                                    and Artificial Intelligence. Dissertation on "Deep Learning Approaches for Natural
+                                    Language Understanding in Low-Resource Settings".</p>
+                            </div>
+                        </div>
+                        <!-- Masters -->
+                        <div class="mb-12 relative timeline-dot">
+                            <div class="bg-white rounded-lg shadow-sm p-6 ml-6">
+                                <h3 class="text-xl font-semibold mb-1" data-en="M.S. in Computer Science"
+                                    data-zh="计算机科学硕士">M.S. in Computer Science</h3>
+                                <p class="text-primary font-medium mb-1" data-en="University of California, Berkeley"
+                                    data-zh="加州大学伯克利分校">University of California, Berkeley</p>
+                                <p class="text-gray-600 mb-3" data-en="2013 - 2015 | California, USA"
+                                    data-zh="2013 - 2015 | 美国加利福尼亚">2013 - 2015 | California, USA</p>
+                                <p data-en="Focus on Distributed Systems and Data Science. Completed thesis on 'Scalable Machine Learning Pipelines for Big Data Processing'."
+                                    data-zh="专注于分布式系统和数据科学。完成论文“大数据处理的可扩展机器学习管道”。">Focus on Distributed Systems and
+                                    Data Science. Completed thesis on "Scalable Machine Learning Pipelines for Big Data
+                                    Processing".</p>
+                            </div>
+                        </div>
+                        <!-- Bachelors -->
+                        <div class="relative timeline-dot">
+                            <div class="bg-white rounded-lg shadow-sm p-6 ml-6">
+                                <h3 class="text-xl font-semibold mb-1" data-en="B.S. in Computer Engineering"
+                                    data-zh="计算机工程学士">B.S. in Computer Engineering</h3>
+                                <p class="text-primary font-medium mb-1" data-en="Tsinghua University" data-zh="清华大学">
+                                    Tsinghua University</p>
+                                <p class="text-gray-600 mb-3" data-en="2009 - 2013 | Beijing, China"
+                                    data-zh="2009 - 2013 | 中国北京">2009 - 2013 | Beijing, China</p>
+                                <p data-en="Graduated with honors. Participated in ACM programming competitions and led the university's robotics team."
+                                    data-zh="以优异成绩毕业。参加ACM编程竞赛并领导大学机器人团队。">Graduated with honors. Participated in ACM
+                                    programming competitions and led the university's robotics team.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- WORK EXPERIENCE Section -->
+            <section id="experience" class="py-16 bg-white rounded-lg shadow-sm">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold mb-12 text-center font-poppins" data-en="Work Experience"
+                        data-zh="工作经验">Work Experience</h2>
+                    <div class="max-w-4xl mx-auto">
+                        <!-- Google 工作经历区块 -->
+                        <div class="mb-10 p-6 bg-gray-50 rounded-lg">
+                            <!-- 工作职位和公司信息容器，在中等屏幕及以上采用水平布局 -->
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <div>
+                                    <!-- 职位名称，支持中英文切换 -->
+                                    <h3 class="text-xl font-semibold" data-en="Senior Software Engineer"
+                                        data-zh="高级软件工程师">Senior Software Engineer</h3>
+                                    <!-- 公司名称，支持中英文切换 -->
+                                    <p class="text-primary font-medium" data-en="Google" data-zh="谷歌">Google</p>
+                                </div>
+                                <!-- 工作时间，支持中英文切换 -->
+                                <p class="text-gray-600" data-en="Jan 2022 - Present" data-zh="2022年1月 - 至今">Jan 2022 -
+                                    Present</p>
+                            </div>
+                            <!-- 工作成果列表 -->
+                            <ul class="list-disc pl-5 space-y-2">
+                                <!-- 领导团队开发机器学习基础设施，支持中英文切换 -->
+                                <li data-en="Lead a team of 8 engineers developing machine learning infrastructure for Google Cloud products."
+                                    data-zh="领导8名工程师团队为Google Cloud产品开发机器学习基础设施。">Lead a team of 8 engineers developing
+                                    machine learning infrastructure for Google Cloud products.</li>
+                                <!-- 设计并实现分布式训练系统，支持中英文切换 -->
+                                <li data-en="Architected and implemented a distributed training system that reduced model training time by 40%."
+                                    data-zh="设计并实现了分布式训练系统，将模型训练时间减少了40%。">Architected and implemented a distributed
+                                    training system that reduced model training time by 40%.</li>
+                                <!-- 与产品团队合作集成AI功能，支持中英文切换 -->
+                                <li data-en="Collaborated with product teams to integrate AI capabilities into various Google services."
+                                    data-zh="与产品团队合作，将AI功能集成到各种Google服务中。">Collaborated with product teams to integrate
+                                    AI capabilities into various Google services.</li>
+                                <!-- 指导初级工程师并领导技术评审，支持中英文切换 -->
+                                <li data-en="Mentored junior engineers and led technical design reviews for critical projects."
+                                    data-zh="指导初级工程师并领导关键项目的技术设计评审。">Mentored junior engineers and led technical design
+                                    reviews for critical projects.</li>
+                            </ul>
+                        </div>
+
+                        <!-- DataSphere -->
+                        <div class="mb-10 p-6 bg-gray-50 rounded-lg">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="text-xl font-semibold" data-en="Senior Developer" data-zh="高级开发人员">Senior
+                                        Developer</h3>
+                                    <p class="text-primary font-medium" data-en="DataSphere" data-zh="DataSphere">
+                                        DataSphere</p>
+                                </div>
+                                <p class="text-gray-600" data-en="Mar 2020 - Dec 2021" data-zh="2020年3月 - 2021年12月">Mar
+                                    2020 - Dec 2021</p>
+                            </div>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li data-en="Designed and built a real-time data processing platform handling over 10TB of data daily."
+                                    data-zh="设计并构建了实时数据处理平台，每天处理超过10TB的数据。">Designed and built a real-time data
+                                    processing platform handling over 10TB of data daily.</li>
+                                <li data-en="Implemented microservices architecture using Kubernetes, reducing deployment time by 60%."
+                                    data-zh="使用Kubernetes实现微服务架构，将部署时间减少60%。">Implemented microservices architecture
+                                    using Kubernetes, reducing deployment time by 60%.</li>
+                                <li data-en="Optimized database queries and caching strategies, improving application performance by 35%."
+                                    data-zh="优化数据库查询和缓存策略，提高应用性能35%。">Optimized database queries and caching strategies,
+                                    improving application performance by 35%.</li>
+                                <li data-en="Led the migration from monolithic architecture to cloud-native services on AWS."
+                                    data-zh="领导从单体架构迁移到AWS上的云原生服务。">Led the migration from monolithic architecture to
+                                    cloud-native services on AWS.</li>
+                            </ul>
+                        </div>
+                        <!-- TechVision -->
+                        <div class="p-6 bg-gray-50 rounded-lg">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="text-xl font-semibold" data-en="Machine Learning Engineer"
+                                        data-zh="机器学习工程师">Machine Learning Engineer</h3>
+                                    <p class="text-primary font-medium" data-en="TechVision" data-zh="TechVision">
+                                        TechVision</p>
+                                </div>
+                                <p class="text-gray-600" data-en="Jun 2018 - Feb 2020" data-zh="2018年6月 - 2020年2月">Jun
+                                    2018 - Feb 2020</p>
+                            </div>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li data-en="Developed computer vision algorithms for autonomous vehicle perception systems."
+                                    data-zh="为自动驾驶汽车感知系统开发计算机视觉算法。">Developed computer vision algorithms for autonomous
+                                    vehicle perception systems.</li>
+                                <li data-en="Created data pipelines for processing and annotating large-scale image datasets."
+                                    data-zh="创建数据管道，用于处理和注释大规模图像数据集。">Created data pipelines for processing and
+                                    annotating large-scale image datasets.</li>
+                                <li data-en="Improved object detection accuracy by 25% through novel deep learning architectures."
+                                    data-zh="通过新型深度学习架构将物体检测准确率提高了25%。">Improved object detection accuracy by 25%
+                                    through novel deep learning architectures.</li>
+                                <li data-en="Published research paper on efficient neural network deployment on edge devices."
+                                    data-zh="发表关于边缘设备上高效神经网络部署的研究论文。">Published research paper on efficient neural
+                                    network deployment on edge devices.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- PROJECTS Section -->
+            <section id="projects" class="py-16">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold mb-12 text-center font-poppins" data-en="Projects" data-zh="项目">
+                        Projects</h2>
+                    <div class="relative max-w-4xl mx-auto">
+                        <div class="overflow-hidden">
+                            <div id="project-slider" class="flex transition-transform duration-500"
+                                style="transform: translateX(0);">
+                                <!-- Project 1 - AI推荐引擎项目 -->
+                                <!-- 幻灯片容器，宽度占满父容器，不允许收缩 -->
+                                <div class="slide w-full flex-shrink-0">
+                                    <!-- 项目卡片容器，设置背景为白色，圆角边框，阴影效果，溢出内容隐藏 -->
+                                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                                        <!-- 项目图片，宽度占满父容器，高度为64，图片填充模式为覆盖，显示顶部部分 -->
+                                        <img src="assets/project1.jpg" alt="Project 1"
+                                            class="w-full h-64 object-cover object-top">
+                                        <!-- 项目内容容器，设置内边距 -->
+                                        <div class="p-6">
+                                            <!-- 项目标题和GitHub链接容器，使用flex布局两端对齐，底部边距为4 -->
+                                            <div class="flex justify-between items-start mb-4">
+                                                <!-- 项目标题，设置字体大小为xl，字体加粗，支持中英文切换 -->
+                                                <h3 class="text-xl font-semibold" data-en="AI Recommendation Engine"
+                                                    data-zh="AI推荐引擎">AI Recommendation Engine</h3>
+                                                <!-- GitHub链接，点击后在新窗口打开，鼠标悬停时背景颜色变深 -->
+                                                <a href="https://github.com" target="_blank"
+                                                    class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                                    <!-- GitHub图标，使用 Remix Icon 图标库 -->
+                                                    <i class="ri-github-fill ri-lg"></i>
+                                                </a>
+                                            </div>
+                                            <!-- 项目描述，设置底部边距为4，支持中英文切换 -->
+                                            <p class="mb-4"
+                                                data-en="A scalable recommendation system built with TensorFlow and deployed on Google Cloud. The system analyzes user behavior to provide personalized content recommendations with 87% accuracy."
+                                                data-zh="使用TensorFlow构建并部署在Google Cloud上的可扩展推荐系统。该系统分析用户行为，提供87%准确率的个性化内容推荐。">
+                                                A scalable recommendation system built with TensorFlow and deployed on
+                                                Google Cloud. The system analyzes user behavior to provide personalized
+                                                content recommendations with 87% accuracy.
+                                            </p>
+                                            <!-- 项目技术标签容器，使用flex布局，自动换行，设置标签间距 -->
+                                            <div class="flex flex-wrap gap-2">
+                                                <!-- 技术标签，设置背景颜色、文字颜色、圆角和字体大小 -->
+                                                <span
+                                                    class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">TensorFlow</span>
+                                                <span
+                                                    class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Python</span>
+                                                <span
+                                                    class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs">GCP</span>
+                                                <span
+                                                    class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">BigQuery</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Project 2 -->
+                                <div class="slide w-full flex-shrink-0">
+                                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                                        <img src="assets/project2.jpg" alt="Project 2"
+                                            class="w-full h-64 object-cover object-top">
+                                        <div class="p-6">
+                                            <div class="flex justify-between items-start mb-4">
+                                                <h3 class="text-xl font-semibold" data-en="Real-time Analytics Platform"
+                                                    data-zh="实时分析平台">Real-time Analytics Platform</h3>
+                                                <a href="https://github.com" target="_blank"
+                                                    class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                                    <i class="ri-github-fill ri-lg"></i>
+                                                </a>
+                                            </div>
+                                            <p class="mb-4"
+                                                data-en="A distributed system for processing streaming data using Apache Kafka and Spark. Features include anomaly detection, real-time dashboards, and automated alerting mechanisms."
+                                                data-zh="使用Apache Kafka和Spark处理流数据的分布式系统。功能包括异常检测、实时仪表板和自动警报机制。">A
+                                                distributed system for processing streaming data using Apache Kafka and
+                                                Spark. Features include anomaly detection, real-time dashboards, and
+                                                automated alerting mechanisms.</p>
+                                            <div class="flex flex-wrap gap-2">
+                                                <span
+                                                    class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Kafka</span>
+                                                <span
+                                                    class="px-2 py-1 bg-orange-100 text-orange-800 rounded-full text-xs">Spark</span>
+                                                <span
+                                                    class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Scala</span>
+                                                <span
+                                                    class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Grafana</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Project 3 -->
+                                <div class="slide w-full flex-shrink-0">
+                                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                                        <img src="assets/project3.jpg" alt="Project 3"
+                                            class="w-full h-64 object-cover object-top">
+                                        <div class="p-6">
+                                            <div class="flex justify-between items-start mb-4">
+                                                <h3 class="text-xl font-semibold" data-en="LinguaLearn Mobile App"
+                                                    data-zh="LinguaLearn移动应用">LinguaLearn Mobile App</h3>
+                                                <a href="https://github.com" target="_blank"
+                                                    class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                                    <i class="ri-github-fill ri-lg"></i>
+                                                </a>
+                                            </div>
+                                            <p class="mb-4"
+                                                data-en="An AI-powered language learning application with speech recognition and personalized learning paths. Implemented spaced repetition algorithms to optimize vocabulary retention."
+                                                data-zh="具有语音识别和个性化学习路径的AI驱动语言学习应用程序。实施了间隔重复算法以优化词汇记忆。">An AI-powered
+                                                language learning application with speech recognition and personalized
+                                                learning paths. Implemented spaced repetition algorithms to optimize
+                                                vocabulary retention.</p>
+                                            <div class="flex flex-wrap gap-2">
+                                                <span
+                                                    class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">React
+                                                    Native</span>
+                                                <span
+                                                    class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs">TensorFlow.js</span>
+                                                <span
+                                                    class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Firebase</span>
+                                                <span
+                                                    class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">NLP</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Project 4 -->
+                                <div class="slide w-full flex-shrink-0">
+                                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                                        <img src="assets/project4.jpg" alt="Project 4"
+                                            class="w-full h-64 object-cover object-top">
+                                        <div class="p-6">
+                                            <div class="flex justify-between items-start mb-4">
+                                                <h3 class="text-xl font-semibold" data-en="CloudOps Automation Suite"
+                                                    data-zh="CloudOps自动化套件">CloudOps Automation Suite</h3>
+                                                <a href="https://github.com" target="_blank"
+                                                    class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                                    <i class="ri-github-fill ri-lg"></i>
+                                                </a>
+                                            </div>
+                                            <p class="mb-4"
+                                                data-en="A comprehensive DevOps toolkit for automating cloud infrastructure management. Includes CI/CD pipelines, infrastructure as code templates, and monitoring solutions."
+                                                data-zh="用于自动化云基础设施管理的综合DevOps工具包。包括CI/CD管道、基础设施即代码模板和监控解决方案。">A
+                                                comprehensive DevOps toolkit for automating cloud infrastructure
+                                                management. Includes CI/CD pipelines, infrastructure as code templates,
+                                                and monitoring solutions.</p>
+                                            <div class="flex flex-wrap gap-2">
+                                                <span
+                                                    class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Terraform</span>
+                                                <span
+                                                    class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Ansible</span>
+                                                <span
+                                                    class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Kubernetes</span>
+                                                <span
+                                                    class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs">Prometheus</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Navigation Buttons -->
+                        <button id="prev-project"
+                            class="absolute top-1/2 left-4 -translate-y-1/2 w-10 h-10 bg-white shadow-md rounded-full flex items-center justify-center hover:bg-gray-100 z-10">
+                            <i class="ri-arrow-left-s-line ri-lg"></i>
+                        </button>
+                        <button id="next-project"
+                            class="absolute top-1/2 right-4 -translate-y-1/2 w-10 h-10 bg-white shadow-md rounded-full flex items-center justify-center hover:bg-gray-100 z-10">
+                            <i class="ri-arrow-right-s-line ri-lg"></i>
+                        </button>
+                        <!-- Indicators -->
+                        <div class="flex justify-center mt-6 space-x-2">
+                            <button class="w-3 h-3 rounded-full bg-primary" data-index="0"></button>
+                            <button class="w-3 h-3 rounded-full bg-gray-300" data-index="1"></button>
+                            <button class="w-3 h-3 rounded-full bg-gray-300" data-index="2"></button>
+                            <button class="w-3 h-3 rounded-full bg-gray-300" data-index="3"></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- CONTACT Section -->
+            <!-- 联系信息板块，设置内边距、背景颜色、圆角和阴影 -->
+            <section id="contact-section" class="py-16 bg-white rounded-lg shadow-sm">
+                <div class="container mx-auto">
+                    <!-- 板块标题，设置字体大小、粗细、边距、居中显示和字体样式，支持中英文切换 -->
+                    <h2 class="text-3xl font-bold mb-12 text-center font-poppins" data-en="Contact Me" data-zh="联系我">
+                        Contact Me</h2>
+                    <!-- 使用flex布局，在中等屏幕及以上变为水平排列，设置间距 -->
+                    <div class="flex flex-col md:flex-row gap-10">
+                        <!-- Left Column - Contact Form -->
+                        <!-- 左侧列，用于显示联系表单，在中等屏幕及以上占容器宽度的一半，设置内边距 -->
+                        <div class="w-full md:w-1/2 px-6">
+                            <!-- 联系表单，设置垂直间距 -->
+                            <form class="space-y-6">
+                                <!-- 姓名输入框 -->
+                                <div>
+                                    <!-- 姓名输入框标签，支持中英文切换 -->
+                                    <label for="name" class="block mb-2 font-medium" data-en="Name"
+                                        data-zh="姓名">Name</label>
+                                    <!-- 姓名输入框，设置样式，必填项 -->
+                                    <input type="text" id="name"
+                                        class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        required>
+                                </div>
+                                <!-- 邮箱输入框 -->
+                                <div>
+                                    <!-- 邮箱输入框标签，支持中英文切换 -->
+                                    <label for="email" class="block mb-2 font-medium" data-en="Email"
+                                        data-zh="邮箱">Email</label>
+                                    <!-- 邮箱输入框，设置样式，必填项 -->
+                                    <input type="email" id="email"
+                                        class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        required>
+                                </div>
+                                <!-- 主题输入框 -->
+                                <div>
+                                    <!-- 主题输入框标签，支持中英文切换 -->
+                                    <label for="subject" class="block mb-2 font-medium" data-en="Subject"
+                                        data-zh="主题">Subject</label>
+                                    <!-- 主题输入框，设置样式，必填项 -->
+                                    <input type="text" id="subject"
+                                        class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        required>
+                                </div>
+                                <!-- 留言输入框 -->
+                                <div>
+                                    <!-- 留言输入框标签，支持中英文切换 -->
+                                    <label for="message" class="block mb-2 font-medium" data-en="Message"
+                                        data-zh="信息">Message</label>
+                                    <!-- 留言输入框，设置样式，必填项 -->
+                                    <textarea id="message" rows="5"
+                                        class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        required></textarea>
+                                </div>
+                                <!-- 提交按钮，支持中英文切换 -->
+                                <button type="submit"
+                                    class="px-6 py-3 bg-primary text-white rounded-button font-medium hover:bg-blue-600 transition-colors whitespace-nowrap"
+                                    data-en="Send Message" data-zh="发送信息">
+                                    Send Message
+                                </button>
+                            </form>
+                        </div>
+                        <!-- Right Column - Contact Info & Map -->
+                        <!-- 右侧列，用于显示联系信息和地图，在中等屏幕及以上占容器宽度的一半，设置内边距 -->
+                        <div class="w-full md:w-1/2 px-6">
+                            <!-- 联系信息容器，设置底部边距 -->
+                            <div class="mb-8">
+                                <!-- 联系信息标题，支持中英文切换 -->
+                                <h3 class="text-xl font-semibold mb-4" data-en="Contact Information" data-zh="联系信息">
+                                    Contact Information</h3>
+                                <!-- 联系信息列表，设置垂直间距 -->
+                                <div class="space-y-4">
+                                    <!-- 邮箱信息 -->
+                                    <div class="flex items-start">
+                                        <!-- 邮箱图标容器，设置背景颜色、文字颜色、圆角和边距 -->
+                                        <div
+                                            class="w-10 h-10 flex items-center justify-center bg-blue-100 text-primary rounded-full mr-4">
+                                            <i class="ri-mail-line ri-lg"></i>
+                                        </div>
+                                        <div>
+                                            <!-- 邮箱标题，支持中英文切换 -->
+                                            <h4 class="font-medium" data-en="Email" data-zh="邮箱">Email</h4>
+                                            <!-- 邮箱地址 -->
+                                            <p>jblake@example.com</p>
+                                        </div>
+                                    </div>
+                                    <!-- 电话信息 -->
+                                    <div class="flex items-start">
+                                        <!-- 电话图标容器，设置背景颜色、文字颜色、圆角和边距 -->
+                                        <div
+                                            class="w-10 h-10 flex items-center justify-center bg-blue-100 text-primary rounded-full mr-4">
+                                            <i class="ri-phone-line ri-lg"></i>
+                                        </div>
+                                        <div>
+                                            <!-- 电话标题，支持中英文切换 -->
+                                            <h4 class="font-medium" data-en="Phone" data-zh="电话">Phone</h4>
+                                            <!-- 电话号码 -->
+                                            <p>+1 (650) 123-4567</p>
+                                        </div>
+                                    </div>
+                                    <!-- 地址信息 -->
+                                    <div class="flex items-start">
+                                        <!-- 地图图标容器，设置背景颜色、文字颜色、圆角和边距 -->
+                                        <div
+                                            class="w-10 h-10 flex items-center justify-center bg-blue-100 text-primary rounded-full mr-4">
+                                            <i class="ri-map-pin-line ri-lg"></i>
+                                        </div>
+                                        <div>
+                                            <!-- 地址标题，支持中英文切换 -->
+                                            <h4 class="font-medium" data-en="Location" data-zh="地址">Location</h4>
+                                            <!-- 具体地址，支持中英文切换 -->
+                                            <p data-en="Mountain View, California, USA" data-zh="美国加利福尼亚州山景城">Mountain
+                                                View, California, USA</p>
+                                        </div>
+                                    </div>
+                                    <!-- 工作时间信息 -->
+                                    <div class="flex items-start">
+                                        <!-- 时间图标容器，设置背景颜色、文字颜色、圆角和边距 -->
+                                        <div
+                                            class="w-10 h-10 flex items-center justify-center bg-blue-100 text-primary rounded-full mr-4">
+                                            <i class="ri-time-line ri-lg"></i>
+                                        </div>
+                                        <div>
+                                            <!-- 工作时间标题，支持中英文切换 -->
+                                            <h4 class="font-medium" data-en="Working Hours" data-zh="工作时间">Working Hours
+                                            </h4>
+                                            <!-- 具体工作时间，支持中英文切换 -->
+                                            <p data-en="Monday - Friday: 9:00 AM - 5:00 PM"
+                                                data-zh="周一至周五: 上午9:00 - 下午5:00">Monday - Friday: 9:00 AM - 5:00 PM</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 地图容器，设置高度、圆角和溢出隐藏 -->
+                            <div class="h-64 rounded-lg overflow-hidden">
+                                <!-- 地图背景，使用图片作为地图占位符 -->
+                                <div class="w-full h-full"
+                                    style="background-image: url('assets/map.png'); background-position: center; background-size: cover;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </section>
+        </div>
+        <!-- Academic Version -->
+        <div id="academic-version" style="display: none;">
+            <!-- HOME Section -->
+            <section id="home" class="py-16 md:py-24">
+                <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+                    <!-- Left Column - Profile Image & Social Links -->
+                    <div class="w-full md:w-1/3 flex flex-col items-center">
+                        <div class="profile-img-container mb-6">
+                            <div class="profile-img-border rounded-full p-2 border-2 border-gray-200">
+                                <img src="assets/prof2.png" alt="Profile Image"
+                                    class="rounded-full w-48 h-48 object-cover">
+                            </div>
+                        </div>
+                        <div class="flex space-x-4 mt-4">
+                            <a href="https://scholar.google.com" target="_blank"
+                                class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                <i class="ri-google-fill ri-lg"></i>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank"
+                                class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                <i class="ri-linkedin-fill ri-lg"></i>
+                            </a>
+                            <a href="https://github.com" target="_blank"
+                                class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                <i class="ri-github-fill ri-lg"></i>
+                            </a>
+                            <a href="https://twitter.com" target="_blank"
+                                class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                <i class="ri-twitter-fill ri-lg"></i>
+                            </a>
+                            <a href="https://university.edu" target="_blank"
+                                class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
+                                <i class="ri-building-4-line ri-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Right Column - Personal Info -->
+                    <div class="w-full md:w-2/3">
+                        <h1 class="text-4xl md:text-5xl font-bold mb-3 uppercase font-poppins" data-en="Jonathan Blake"
+                            data-zh="乔纳森·布莱克">Jonathan Blake</h1>
+                        <p class="text-xl text-gray-600 mb-4" data-en="Associate Professor of Computer Science"
+                            data-zh="计算机科学副教授">Associate Professor of Computer Science</p>
+                        <p class="text-gray-600 mb-2" data-en="Email: jblake@university.edu"
+                            data-zh="邮箱: jblake@university.edu">Email: jblake@university.edu</p>
+                        <p class="text-lg mb-8 max-w-2xl"
+                            data-en="I'm a researcher in artificial intelligence and machine learning, focusing on natural language processing and computer vision. My work aims to develop more efficient and interpretable AI systems."
+                            data-zh="我是人工智能和机器学习领域的研究者，专注于自然语言处理和计算机视觉。我的工作旨在开发更高效、更可解释的人工智能系统。">I'm a researcher in
+                            artificial intelligence and machine learning, focusing on natural language processing and
+                            computer vision. My work aims to develop more efficient and interpretable AI systems.</p>
+
+                        <!-- 按钮容器，使用flex布局，自动换行，按钮之间间距为4 -->
+                        <div class="flex flex-wrap gap-4">
+                            <!-- 下载简历链接，点击后下载指定的PDF文件，设置按钮样式 -->
+                            <a href="assets/cv.pdf" download="CV.pdf" class=" px-6 py-3 bg-primary text-white rounded-button font-medium hover:bg-blue-600
+                                transition-colors flex items-center whitespace-nowrap" data-en="Download CV"
+                                data-zh="下载简历">
+                                <!-- 下载图标，设置图标大小并添加右侧边距 -->
+                                <i class="ri-download-line ri-lg mr-2"></i> Download CV
+                            </a>
+                            <!-- 联系我链接，点击后跳转到页面内ID为contact的锚点，设置按钮样式 -->
+                            <a href="#contact"
+                                class="px-6 py-3 bg-white border border-gray-300 rounded-button font-medium hover:bg-gray-100 transition-colors flex items-center whitespace-nowrap"
+                                data-en="Contact Me" data-zh="联系我">
+                                <!-- 邮件图标，设置图标大小并添加右侧边距 -->
+                                <i class="ri-mail-line ri-lg mr-2"></i> Contact Me
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <!-- ABOUT ME Section -->
+            <!-- 关于我的板块，设置内边距、背景颜色、圆角和阴影 -->
+            <section id="about" class="py-16 bg-white rounded-lg shadow-sm">
+                <div class="container mx-auto">
+                    <!-- 板块标题，设置字体大小、粗细、边距、居中显示和字体样式，支持中英文切换 -->
+                    <h2 class="text-3xl font-bold mb-12 text-center font-poppins" data-en="About Me" data-zh="关于我">About
+                        Me</h2>
+                    <!-- 使用flex布局，在中等屏幕及以上变为水平排列，设置间距 -->
+                    <div class="flex flex-col md:flex-row gap-10">
+                        <!-- Left Column - Research Experience -->
+                        <!-- 左侧列，在中等屏幕及以上占容器宽度的一半，设置内边距 -->
+                        <div class="w-full md:w-1/2 px-6">
+                            <!-- 研究方向标题，设置字体大小、粗细和边距，支持中英文切换 -->
+                            <h3 class="text-xl font-semibold mb-6" data-en="Research Interests" data-zh="研究方向">Research
+                                Interests</h3>
+                            <!-- 研究方向描述，设置底部边距，支持中英文切换 -->
+                            <p class="mb-6"
+                                data-en="My research focuses on developing novel machine learning algorithms with applications in natural language processing and computer vision. I'm particularly interested in efficient deep learning, transfer learning, and interpretable AI."
+                                data-zh="我的研究专注于开发新型机器学习算法，应用于自然语言处理和计算机视觉。我特别关注高效深度学习、迁移学习和可解释人工智能。">My research
+                                focuses on developing novel machine learning algorithms with applications in natural
+                                language processing and computer vision. I'm particularly interested in efficient deep
+                                learning, transfer learning, and interpretable AI.</p>
+                            <!-- 教育与指导标题，设置字体大小、粗细和边距，支持中英文切换 -->
+                            <h3 class="text-xl font-semibold mb-4" data-en="Education & Mentorship" data-zh="教育与指导">
+                                Education & Mentorship</h3>
+                            <!-- 教育经历列表，设置行间距和底部边距 -->
+                            <ul class="space-y-3 mb-6">
+                                <!-- 第一个教育经历条目，使用flex布局使图标和文字垂直对齐 -->
+                                <li class="flex items-start">
+                                    <!-- 毕业帽图标，设置图标大小、颜色和边距 -->
+                                    <i class="ri-graduation-cap-fill ri-lg text-primary mt-1 mr-2"></i>
+                                    <div>
+                                        <!-- 学位和学校信息，设置字体加粗，支持中英文切换 -->
+                                        <p class="font-medium" data-en="Ph.D. in Computer Science, Stanford University"
+                                            data-zh="计算机科学博士，斯坦福大学">Ph.D. in Computer Science, Stanford University</p>
+                                        <!-- 导师信息，设置字体大小和颜色，支持中英文切换 -->
+                                        <p class="text-sm text-gray-600" data-en="Advisor: Prof. Jennifer Lee"
+                                            data-zh="导师：李珍妮教授">Advisor: Prof. Jennifer Lee</p>
+                                    </div>
+                                </li>
+                                <!-- 第二个教育经历条目，使用flex布局使图标和文字垂直对齐 -->
+                                <li class="flex items-start">
+                                    <!-- 毕业帽图标，设置图标大小、颜色和边距 -->
+                                    <i class="ri-graduation-cap-fill ri-lg text-primary mt-1 mr-2"></i>
+                                    <div>
+                                        <!-- 学位和学校信息，设置字体加粗，支持中英文切换 -->
+                                        <p class="font-medium" data-en="M.S. in Computer Science, UC Berkeley"
+                                            data-zh="计算机科学硕士，加州大学伯克利分校">M.S. in Computer Science, UC Berkeley</p>
+                                        <!-- 导师信息，设置字体大小和颜色，支持中英文切换 -->
+                                        <p class="text-sm text-gray-600" data-en="Advisor: Prof. Michael Johnson"
+                                            data-zh="导师：迈克尔·约翰逊教授">Advisor: Prof. Michael Johnson</p>
+                                    </div>
+                                </li>
+                                <!-- 第三个教育经历条目，使用flex布局使图标和文字垂直对齐 -->
+                                <li class="flex items-start">
+                                    <!-- 毕业帽图标，设置图标大小、颜色和边距 -->
+                                    <i class="ri-graduation-cap-fill ri-lg text-primary mt-1 mr-2"></i>
+                                    <div>
+                                        <!-- 学位和学校信息，设置字体加粗，支持中英文切换 -->
+                                        <p class="font-medium"
+                                            data-en="B.S. in Computer Engineering, Tsinghua University"
+                                            data-zh="计算机工程学士，清华大学">B.S. in Computer Engineering, Tsinghua University</p>
+                                        <!-- 导师信息，设置字体大小和颜色，支持中英文切换 -->
+                                        <p class="text-sm text-gray-600" data-en="Advisor: Prof. Wei Chen"
+                                            data-zh="导师：陈伟教授">Advisor: Prof. Wei Chen</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- 学生招募信息板块，设置内边距、背景颜色、圆角和边框 -->
+                            <div class="p-4 bg-gray-50 rounded-lg border border-gray-300">
+                                <!-- 学生招募标题，设置字体大小、粗细、底部边距，使用flex布局使图标和文字垂直对齐，支持中英文切换 -->
+                                <h3 class="text-lg font-semibold mb-2 flex items-center" data-en="Student Recruitment"
+                                    data-zh="学生招募">
+                                    <!-- 用户添加图标，设置图标大小、颜色和边距 -->
+                                    <i class="ri-user-add-line ri-lg text-primary mr-2"></i> Student Recruitment
+                                </h3>
+                                <!-- 学生招募描述，设置字体大小，支持中英文切换 -->
+                                <p class="text-sm"
+                                    data-en="I am currently looking for motivated Ph.D. students with strong backgrounds in machine learning, mathematics, or computer science. If you're interested in joining our lab, please email me your CV and research statement."
+                                    data-zh="我目前正在寻找具有机器学习、数学或计算机科学强背景的积极进取的博士生。如果您有兴趣加入我们的实验室，请通过电子邮件发送您的简历和研究陈述。">I am
+                                    currently looking for motivated Ph.D. students with strong backgrounds in machine
+                                    learning, mathematics, or computer science. If you're interested in joining our lab,
+                                    please email me your CV and research statement.</p>
+                            </div>
+                        </div>
+
+                        <!-- Right Column - Academic Stats -->
+                        <!-- 右侧列，用于展示学术指标相关信息，在中等屏幕及以上占容器宽度的一半，设置内边距 -->
+                        <div class="w-full md:w-1/2 px-6">
+                            <!-- 学术指标标题，设置字体大小、粗细和底部边距，支持中英文切换 -->
+                            <h3 class="text-xl font-semibold mb-6" data-en="Academic Metrics" data-zh="学术指标">Academic
+                                Metrics</h3>
+                            <!-- 使用网格布局，每行显示两个指标块，设置间距和底部边距 -->
+                            <div class="grid grid-cols-2 gap-6 mb-8">
+                                <!-- 发表论文指标块，设置背景颜色、内边距、圆角和居中对齐 -->
+                                <div class="bg-gray-50 p-5 rounded-lg text-center">
+                                    <!-- 发表论文数量，设置字体大小、粗细、颜色和底部边距 -->
+                                    <div class="text-4xl font-bold text-primary mb-2">42</div>
+                                    <!-- 发表论文标签，设置字体颜色，支持中英文切换 -->
+                                    <p class="text-gray-600" data-en="Publications" data-zh="发表论文">Publications</p>
+                                </div>
+                                <!-- 引用次数指标块，设置背景颜色、内边距、圆角和居中对齐 -->
+                                <div class="bg-gray-50 p-5 rounded-lg text-center">
+                                    <!-- 引用次数，设置字体大小、粗细、颜色和底部边距 -->
+                                    <div class="text-4xl font-bold text-primary mb-2">3.2k</div>
+                                    <!-- 引用次数标签，设置字体颜色，支持中英文切换 -->
+                                    <p class="text-gray-600" data-en="Citations" data-zh="引用次数">Citations</p>
+                                </div>
+                                <!-- h指数指标块，设置背景颜色、内边距、圆角和居中对齐 -->
+                                <div class="bg-gray-50 p-5 rounded-lg text-center">
+                                    <!-- h指数数值，设置字体大小、粗细、颜色和底部边距 -->
+                                    <div class="text-4xl font-bold text-primary mb-2">24</div>
+                                    <!-- h指数标签，设置字体颜色，支持中英文切换 -->
+                                    <p class="text-gray-600" data-en="h-index" data-zh="h指数">h-index</p>
+                                </div>
+                                <!-- 会议指标块，设置背景颜色、内边距、圆角和居中对齐 -->
+                                <div class="bg-gray-50 p-5 rounded-lg text-center">
+                                    <!-- 参加会议数量，设置字体大小、粗细、颜色和底部边距 -->
+                                    <div class="text-4xl font-bold text-primary mb-2">18</div>
+                                    <!-- 会议标签，设置字体颜色，支持中英文切换 -->
+                                    <p class="text-gray-600" data-en="Conferences" data-zh="会议">Conferences</p>
+                                </div>
+                            </div>
+                            <!-- 引用增长图表容器，设置宽度、高度和底部边距 -->
+                            <div id="citation-chart" class="w-full h-64 mb-4"></div>
+                            <!-- 图表说明文字，设置居中对齐、字体大小和颜色，支持中英文切换 -->
+                            <p class="text-center text-sm text-gray-600" data-en="Citation growth over the past 5 years"
+                                data-zh="过去5年的引用增长">Citation growth over the past 5 years</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <!-- NEWS Section -->
+            <section id="news" class="py-16">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold mb-12 text-center font-poppins" data-en="News" data-zh="新闻">News</h2>
+                    <div class="relative max-w-3xl mx-auto pl-8 timeline-line">
+                        <!-- News Item 1 -->
+                        <!-- 外层div，用于设置时间线上的点，包含mb-10（底部外边距10）、relative（相对定位）和timeline-dot（时间线点）类 -->
+                        <div class="mb-10 relative timeline-dot">
+                            <!-- 内层div，用于展示具体内容，包含bg-white（白色背景）、rounded-lg（大圆角）、shadow-sm（小阴影）、p-6（内边距6）和ml-6（左边距6）类 -->
+                            <div class="bg-white rounded-lg shadow-sm p-6 ml-6">
+                                <!-- flex布局，用于水平排列标题和日期，包含justify-between（两端对齐）和mb-2（底部外边距2）类 -->
+                                <div class="flex justify-between mb-2">
+                                    <!-- 标题，使用h3标签，包含text-lg（大字体）、font-semibold（粗体）类，以及data-en和data-zh属性用于存储英文和中文标题 -->
+                                    <h3 class="text-lg font-semibold" data-en="Paper Accepted at NeurIPS 2025"
+                                        data-zh="论文被NeurIPS 2025接收">Paper Accepted at NeurIPS 2025</h3>
+                                    <!-- 日期，使用span标签，包含text-sm（小字体）和text-gray-600（灰色文本）类 -->
+                                    <span class="text-sm text-gray-600">May 5, 2025</span>
+                                </div>
+                                <!-- 段落，用于描述论文内容，包含data-en和data-zh属性用于存储英文和中文描述 -->
+                                <p data-en="Our paper 'Efficient Transformer Architectures for Resource-Constrained Environments' has been accepted at NeurIPS 2025. This work introduces a novel attention mechanism that reduces computational complexity while maintaining performance."
+                                    data-zh="我们的论文“资源受限环境下的高效Transformer架构”已被NeurIPS
+                                    2025接收。这项工作引入了一种新型注意力机制，在保持性能的同时降低了计算复杂度。">Our paper "Efficient Transformer
+                                    Architectures for Resource-Constrained Environments" has been accepted at NeurIPS
+                                    2025. This work introduces a novel attention mechanism that reduces computational
+                                    complexity while maintaining performance.</p>
+                            </div>
+                        </div>
+                        <!-- News Item 2 -->
+                        <div class="mb-10 relative timeline-dot">
+                            <div class="bg-white rounded-lg shadow-sm p-6 ml-6">
+                                <div class="flex justify-between mb-2">
+                                    <h3 class="text-lg font-semibold" data-en="Received NSF CAREER Award"
+                                        data-zh="获得NSF CAREER奖">Received NSF CAREER Award</h3>
+                                    <span class="text-sm text-gray-600">Mar 15, 2025</span>
+                                </div>
+                                <p data-en="I'm honored to receive the NSF CAREER Award for our research proposal on 'Interpretable Deep Learning for Scientific Discovery'. This 5-year grant will support our lab's work on developing transparent AI systems for scientific applications."
+                                    data-zh="我很荣幸获得NSF CAREER奖，用于我们的“
+                                    面向科学发现的可解释深度学习”研究提案。这项为期5年的资助将支持我们实验室开发用于科学应用的透明AI系统的工作。">I'm honored to receive
+                                    the
+                                    NSF CAREER Award for our research proposal on "Interpretable Deep Learning for
+                                    Scientific Discovery". This 5-year grant will support our lab's work on developing
+                                    transparent AI systems for scientific applications.</p>
+                            </div>
+                        </div>
+                        <!-- News Item 3 -->
+                        <div class="mb-10 relative timeline-dot">
+                            <div class="bg-white rounded-lg shadow-sm p-6 ml-6">
+                                <div class="flex justify-between mb-2">
+                                    <h3 class="text-lg font-semibold" data-en="Keynote Speaker at ICML Workshop"
+                                        data-zh="ICML研讨会主讲人">Keynote Speaker at ICML Workshop</h3>
+                                    <span class="text-sm text-gray-600">Feb 28, 2025</span>
+                                </div>
+                                <p data-en="I will be delivering a keynote address at the ICML 2025 Workshop on 'Efficient and Sustainable AI'. My talk will focus on recent advances in energy-efficient deep learning models and their applications in edge computing."
+                                    data-zh="我将在ICML 2025“ 高效与可持续AI”研讨会上发表主题演讲。我的演讲将重点关注能源高效深度学习模型的最新进展及其在边缘计算中的应用。">I
+                                    will be delivering a keynote address at the ICML 2025 Workshop on "Efficient and
+                                    Sustainable AI". My talk will focus on recent advances in energy-efficient deep
+                                    learning models and their applications in edge computing.</p>
+                            </div>
+                        </div>
+                        <!-- News Item 4 -->
+                        <div class="mb-10 relative timeline-dot">
+                            <div class="bg-white rounded-lg shadow-sm p-6 ml-6">
+                                <div class="flex justify-between mb-2">
+                                    <h3 class="text-lg font-semibold" data-en="New Research Grant from Google"
+                                        data-zh="获得谷歌新研究资助">New Research Grant from Google</h3>
+                                    <span class="text-sm text-gray-600">Jan 10, 2025</span>
+                                </div>
+                                <p data-en="Our lab has been awarded a research grant from Google to explore 'Multimodal Learning for Healthcare Applications'. This project will develop AI systems that can integrate data from various medical sources to assist in diagnosis and treatment planning."
+                                    data-zh="我们的实验室获得了谷歌的研究资助，用于探索“ 医疗应用的多模态学习”。该项目将开发能够整合各种医疗来源数据的AI系统，以协助诊断和治疗计划。">Our
+                                    lab has been awarded a research grant from Google to explore "Multimodal Learning
+                                    for Healthcare Applications". This project will develop AI systems that can
+                                    integrate data from various medical sources to assist in diagnosis and treatment
+                                    planning.</p>
+                            </div>
+                        </div>
+                        <!-- News Item 5 -->
+                        <div class="relative timeline-dot">
+                            <div class="bg-white rounded-lg shadow-sm p-6 ml-6">
+                                <div class="flex justify-between mb-2">
+                                    <h3 class="text-lg font-semibold" data-en="Two Papers Accepted at CVPR 2025"
+                                        data-zh="两篇论文被CVPR 2025接收">Two Papers Accepted at CVPR 2025</h3>
+                                    <span class="text-sm text-gray-600">Dec 18, 2024</span>
+                                </div>
+                                <p data-en="We're pleased to announce that our lab has had two papers accepted at CVPR 2025: 'Self-Supervised Visual Representation Learning with Minimal Labels' and 'Attention-Guided Image Segmentation for Medical Imaging'. Congratulations to all the students involved!"
+                                    data-zh="我们很高兴地宣布，我们的实验室有两篇论文被CVPR 2025接收：“
+                                    具有最小标签的自监督视觉表示学习”和“医学成像的注意力引导图像分割”。祝贺所有参与的学生！">We're pleased to announce that our
+                                    lab has had two papers accepted at CVPR 2025: "Self-Supervised Visual Representation
+                                    Learning with Minimal Labels" and "Attention-Guided Image Segmentation for Medical
+                                    Imaging". Congratulations to all the students involved!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- PUBLICATIONS Section -->
+            <section id="publications" class="py-16 bg-white rounded-lg shadow-sm">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold mb-8 text-center font-poppins" data-en="Selected Publications"
+                        data-zh="精选论文">Selected Publications</h2>
+                    <!-- Filter Buttons -->
+                    <div class="flex flex-wrap justify-center gap-3 mb-10">
+                        <button
+                            class="px-4 py-2 bg-primary text-white rounded-full text-sm font-medium publication-filter active"
+                            data-filter="all" data-en="All" data-zh="全部">All</button>
+                        <button
+                            class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium publication-filter"
+                            data-filter="ml" data-en="Machine Learning" data-zh="机器学习">Machine Learning</button>
+                        <button
+                            class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium publication-filter"
+                            data-filter="nlp" data-en="NLP" data-zh="自然语言处理">NLP</button>
+                        <button
+                            class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium publication-filter"
+                            data-filter="cv" data-en="Computer Vision" data-zh="计算机视觉">Computer Vision</button>
+                        <button
+                            class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium publication-filter"
+                            data-filter="ai" data-en="AI Ethics" data-zh="AI伦理">AI Ethics</button>
+                    </div>
+                    <div class="max-w-4xl mx-auto space-y-6">
+                        <!-- Publication 1 -->
+                        <!-- 定义一个 publication-item 类的 div，用于展示某篇论文的信息 -->
+                        <div class="publication-item bg-gray-50 p-6 rounded-lg" data-category="ml nlp">
+                            <!-- 定义一个 h3 标签，用于展示论文的标题 -->
+                            <h3 class="text-xl font-semibold mb-2"
+                                data-en="Efficient Transformer Architectures for Resource-Constrained Environments"
+                                data-zh="资源受限环境下的高效Transformer架构">Efficient Transformer Architectures for
+                                Resource-Constrained Environments</h3>
+                            <!-- 定义一个 p 标签，用于展示论文的作者和发表年份 -->
+                            <p class="text-gray-600 mb-3"
+                                data-en="Jonathan, B., Johnson, R., & Lee, J. (2025). NeurIPS 2025."
+                                data-zh="乔纳森·布莱克, Johnson, R., & Lee, J. (2025). NeurIPS 2025.">Jonathan, B., Johnson,
+                                R.,
+                                &
+                                Lee, J. (2025). NeurIPS 2025.</p>
+                            <!-- 定义一个 p 标签，用于展示论文的摘要 -->
+                            <p class="mb-4"
+                                data-en="We introduce a novel attention mechanism that reduces the computational complexity of Transformer models from O(n²) to O(n log n) while maintaining comparable performance on benchmark tasks. Our approach enables deployment on edge devices with limited computational resources."
+                                data-zh="我们引入了一种新型注意力机制，将Transformer模型的计算复杂度从O(n²)降低到O(n log n)，同时在基准任务上保持相当的性能。我们的方法使得模型能够部署在计算资源有限的边缘设备上。">
+                                We introduce a novel attention mechanism that reduces the computational complexity of
+                                Transformer models from O(n²) to O(n log n) while maintaining comparable performance on
+                                benchmark tasks. Our approach enables deployment on edge devices with limited
+                                computational resources.</p>
+                            <!-- 定义一个 div，用于展示论文的链接 -->
+                            <div class="flex space-x-3">
+                                <!-- 定义一个 a 标签，用于展示论文的 PDF 链接 -->
+                                <a href="https://arxiv.org" target="_blank"
+                                    class="text-primary hover:text-blue-700 flex items-center">
+                                    <i class="ri-file-paper-2-line ri-lg mr-1"></i>
+                                    <span data-en="Paper" data-zh="论文">Paper</span>
+                                </a>
+                                <!-- 定义一个 a 标签，用于展示论文的代码链接 -->
+                                <a href="https://github.com" target="_blank"
+                                    class="text-primary hover:text-blue-700 flex items-center">
+                                    <i class="ri-github-fill ri-lg mr-1"></i>
+                                    <span data-en="Code" data-zh="代码">Code</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Publication 2 -->
+                        <div class="publication-item bg-gray-50 p-6 rounded-lg" data-category="cv ml">
+                            <h3 class="text-xl font-semibold mb-2"
+                                data-en="Self-Supervised Visual Representation Learning with Minimal Labels"
+                                data-zh="具有最小标签的自监督视觉表示学习">Self-Supervised Visual Representation Learning with Minimal
+                                Labels</h3>
+                            <p class="text-gray-600 mb-3"
+                                data-en="Jonathan, B., Wang, L., & Smith, T. (2025). CVPR 2025."
+                                data-zh="乔纳森·布莱克, Wang, L., & Smith, T. (2025). CVPR 2025.">Jonathan, B., Wang, L., &
+                                Smith, T.
+                                (2025). CVPR 2025.</p>
+                            <p class="mb-4"
+                                data-en="This paper presents a novel approach to self-supervised learning that requires only a small fraction of labeled data to achieve state-of-the-art performance on image classification tasks. Our method combines contrastive learning with a new semi-supervised fine-tuning strategy."
+                                data-zh="本文提出了一种新的自监督学习方法，只需要一小部分标记数据就能在图像分类任务上达到最先进的性能。我们的方法将对比学习与新的半监督微调策略相结合。">This
+                                paper presents a novel approach to self-supervised learning that requires only a small
+                                fraction of labeled data to achieve state-of-the-art performance on image classification
+                                tasks. Our method combines contrastive learning with a new semi-supervised fine-tuning
+                                strategy.</p>
+                            <div class="flex space-x-3">
+                                <a href="https://arxiv.org" target="_blank"
+                                    class="text-primary hover:text-blue-700 flex items-center">
+                                    <i class="ri-file-paper-2-line ri-lg mr-1"></i>
+                                    <span data-en="Paper" data-zh="论文">Paper</span>
+                                </a>
+                                <a href="https://github.com" target="_blank"
+                                    class="text-primary hover:text-blue-700 flex items-center">
+                                    <i class="ri-github-fill ri-lg mr-1"></i>
+                                    <span data-en="Code" data-zh="代码">Code</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Publication 3 -->
+                        <div class="publication-item bg-gray-50 p-6 rounded-lg" data-category="cv ml">
+                            <h3 class="text-xl font-semibold mb-2"
+                                data-en="Attention-Guided Image Segmentation for Medical Imaging"
+                                data-zh="医学成像的注意力引导图像分割">Attention-Guided Image Segmentation for Medical Imaging</h3>
+                            <p class="text-gray-600 mb-3"
+                                data-en="Chen, H., Jonathan, B., & Miller, K. (2025). CVPR 2025."
+                                data-zh="Chen, H., 乔纳森·布莱克, & Miller, K. (2025). CVPR 2025.">Chen, H., Jonathan, B., &
+                                Miller,
+                                K. (2025). CVPR 2025.</p>
+                            <p class="mb-4"
+                                data-en="We propose a novel attention mechanism for medical image segmentation that significantly improves accuracy in identifying small lesions and abnormalities. Our approach outperforms existing methods on multiple medical imaging datasets, including MRI, CT, and ultrasound."
+                                data-zh="我们提出了一种用于医学图像分割的新型注意力机制，显著提高了识别小病变和异常的准确性。我们的方法在多个医学成像数据集（包括MRI、CT和超声）上的表现优于现有方法。">
+                                We propose a novel attention mechanism for medical image segmentation that significantly
+                                improves accuracy in identifying small lesions and abnormalities. Our approach
+                                outperforms existing methods on multiple medical imaging datasets, including MRI, CT,
+                                and ultrasound.</p>
+                            <div class="flex space-x-3">
+                                <a href="https://arxiv.org" target="_blank"
+                                    class="text-primary hover:text-blue-700 flex items-center">
+                                    <i class="ri-file-paper-2-line ri-lg mr-1"></i>
+                                    <span data-en="Paper" data-zh="论文">Paper</span>
+                                </a>
+                                <a href="https://github.com" target="_blank"
+                                    class="text-primary hover:text-blue-700 flex items-center">
+                                    <i class="ri-github-fill ri-lg mr-1"></i>
+                                    <span data-en="Code" data-zh="代码">Code</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Publication 4 -->
+                        <div class="publication-item bg-gray-50 p-6 rounded-lg" data-category="nlp ml">
+                            <h3 class="text-xl font-semibold mb-2"
+                                data-en="Cross-lingual Transfer Learning for Low-resource Languages"
+                                data-zh="低资源语言的跨语言迁移学习">Cross-lingual Transfer Learning for Low-resource Languages</h3>
+                            <p class="text-gray-600 mb-3"
+                                data-en="Jonathan, B., Garcia, M., & Patel, S. (2024). ACL 2024."
+                                data-zh="乔纳森·布莱克, Garcia, M., & Patel, S. (2024). ACL 2024.">Jonathan, B., Garcia, M., &
+                                Patel,
+                                S. (2024). ACL 2024.</p>
+                            <p class="mb-4"
+                                data-en="This work addresses the challenge of building effective NLP systems for languages with limited training data. We introduce a novel cross-lingual transfer learning approach that leverages knowledge from high-resource languages to improve performance on low-resource languages."
+                                data-zh="这项工作解决了为训练数据有限的语言构建有效NLP系统的挑战。我们引入了一种新型跨语言迁移学习方法，利用高资源语言的知识来提高低资源语言的性能。">This
+                                work addresses the challenge of building effective NLP systems for languages with
+                                limited training data. We introduce a novel cross-lingual transfer learning approach
+                                that leverages knowledge from high-resource languages to improve performance on
+                                low-resource languages.</p>
+                            <div class="flex space-x-3">
+                                <a href="https://arxiv.org" target="_blank"
+                                    class="text-primary hover:text-blue-700 flex items-center">
+                                    <i class="ri-file-paper-2-line ri-lg mr-1"></i>
+                                    <span data-en="Paper" data-zh="论文">Paper</span>
+                                </a>
+                                <a href="https://github.com" target="_blank"
+                                    class="text-primary hover:text-blue-700 flex items-center">
+                                    <i class="ri-github-fill ri-lg mr-1"></i>
+                                    <span data-en="Code" data-zh="代码">Code</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Publication 5 -->
+                        <div class="publication-item bg-gray-50 p-6 rounded-lg" data-category="ai">
+                            <h3 class="text-xl font-semibold mb-2"
+                                data-en="Ethical Considerations in Deploying AI Systems: A Framework for Practitioners"
+                                data-zh="部署AI系统的伦理考虑：从业者框架">Ethical Considerations in Deploying AI Systems: A Framework
+                                for Practitioners</h3>
+                            <p class="text-gray-600 mb-3"
+                                data-en="Jonathan, B., Roberts, A., & Kim, J. (2024). FAccT 2024."
+                                data-zh="乔纳森·布莱克, Roberts, A., & Kim, J. (2024). FAccT 2024.">Jonathan, B., Roberts, A.,
+                                &
+                                Kim,
+                                J. (2024). FAccT 2024.</p>
+                            <p class="mb-4"
+                                data-en="We present a comprehensive framework for addressing ethical concerns in the development and deployment of AI systems. Our approach integrates considerations of fairness, accountability, transparency, and privacy throughout the AI lifecycle, from data collection to model deployment and monitoring."
+                                data-zh="我们提出了一个全面的框架，用于解决AI系统开发和部署中的伦理问题。我们的方法在AI生命周期的各个阶段（从数据收集到模型部署和监控）整合了公平性、问责制、透明度和隐私方面的考虑。">
+                                We present a comprehensive framework for addressing ethical concerns in the development
+                                and deployment of AI systems. Our approach integrates considerations of fairness,
+                                accountability, transparency, and privacy throughout the AI lifecycle, from data
+                                collection to model deployment and monitoring.</p>
+                            <div class="flex space-x-3">
+                                <a href="https://arxiv.org" target="_blank"
+                                    class="text-primary hover:text-blue-700 flex items-center">
+                                    <i class="ri-file-paper-2-line ri-lg mr-1"></i>
+                                    <span data-en="Paper" data-zh="论文">Paper</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- TALKS Section -->
+            <section id="talks" class="py-16">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold mb-12 text-center font-poppins" data-en="Talks & Presentations"
+                        data-zh="演讲与演示">Talks & Presentations</h2>
+                    <div class="max-w-4xl mx-auto grid gap-6 md:grid-cols-2">
+                        <!-- Talk 1 -->
+                        <!-- 外层div，设置背景色为白色，圆角，阴影，内边距 -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <!-- 内层div，使用flex布局，两端对齐，垂直居中对齐，底部外边距 -->
+                            <div class="flex justify-between items-start mb-4">
+                                <!-- 左侧div，用于放置标题和子标题 -->
+                                <div>
+                                    <!-- 标题，字体大小为xl，加粗，底部外边距，包含英文和中文数据属性 -->
+                                    <h3 class="text-xl font-semibold mb-1" data-en="Efficient and Sustainable AI"
+                                        data-zh="高效与可持续AI">Efficient and Sustainable AI</h3>
+                                    <!-- 子标题，字体颜色为主色，包含英文和中文数据属性 -->
+                                    <p class="text-primary" data-en="ICML 2025 Workshop (Keynote)"
+                                        data-zh="ICML 2025研讨会（主题演讲）">ICML 2025 Workshop (Keynote)</p>
+                                </div>
+                                <!-- 右侧div，设置背景色，文字颜色，圆角，内边距，字体大小，字体加粗 -->
+                                <div class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                                    <!-- 日期 -->
+                                    Jul 2025
+                                </div>
+                            </div>
+                            <!-- 段落，底部外边距，包含英文和中文数据属性 -->
+                            <p class="mb-3"
+                                data-en="An overview of recent advances in energy-efficient deep learning models and their applications in edge computing environments."
+                                data-zh="能源高效深度学习模型的最新进展及其在边缘计算环境中的应用概述。">An overview of recent advances in
+                                energy-efficient deep learning models and their applications in edge computing
+                                environments.</p>
+                            <!-- 段落，字体大小为sm，字体颜色为灰色，包含英文和中文数据属性 -->
+                            <p class="text-sm text-gray-600" data-en="Vienna, Austria" data-zh="奥地利维也纳">Vienna, Austria
+                            </p>
+                        </div>
+
+                        <!-- Talk 2 -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-1" data-en="The Future of NLP in Healthcare"
+                                        data-zh="NLP在医疗保健中的未来">The Future of NLP in Healthcare</h3>
+                                    <p class="text-primary" data-en="Stanford AI in Medicine Symposium"
+                                        data-zh="斯坦福医学AI研讨会">Stanford AI in Medicine Symposium</p>
+                                </div>
+                                <div class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                                    Apr 2025
+                                </div>
+                            </div>
+                            <p class="mb-3"
+                                data-en="Exploring how natural language processing technologies are transforming healthcare through improved clinical documentation, patient communication, and medical research."
+                                data-zh="探索自然语言处理技术如何通过改进临床文档、患者沟通和医学研究来转变医疗保健。">Exploring how natural language
+                                processing technologies are transforming healthcare through improved clinical
+                                documentation, patient communication, and medical research.</p>
+                            <p class="text-sm text-gray-600" data-en="Stanford, CA, USA" data-zh="美国加州斯坦福">Stanford, CA,
+                                USA</p>
+                        </div>
+                        <!-- Talk 3 -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-1" data-en="Interpretable Deep Learning"
+                                        data-zh="可解释深度学习">Interpretable Deep Learning</h3>
+                                    <p class="text-primary" data-en="NeurIPS 2024" data-zh="NeurIPS 2024">NeurIPS 2024
+                                    </p>
+                                </div>
+                                <div class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                                    Dec 2024
+                                </div>
+                            </div>
+                            <p class="mb-3"
+                                data-en="A presentation on methods for making deep learning models more transparent and interpretable, focusing on techniques such as attention visualization, concept activation vectors, and post-hoc explanation methods."
+                                data-zh="关于使深度学习模型更透明和可解释的方法的演讲，重点关注注意力可视化、概念激活向量和事后解释方法等技术。">A presentation on methods
+                                for making deep learning models more transparent and interpretable, focusing on
+                                techniques such as attention visualization, concept activation vectors, and post-hoc
+                                explanation methods.</p>
+                            <p class="text-sm text-gray-600" data-en="Vancouver, Canada" data-zh="加拿大温哥华">Vancouver,
+                                Canada</p>
+                        </div>
+                        <!-- Talk 4 -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-1"
+                                        data-en="Transfer Learning in Computer Vision" data-zh="计算机视觉中的迁移学习">Transfer
+                                        Learning in Computer Vision</h3>
+                                    <p class="text-primary" data-en="CVPR 2024 Tutorial" data-zh="CVPR 2024教程">CVPR 2024
+                                        Tutorial</p>
+                                </div>
+                                <div class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                                    Jun 2024
+                                </div>
+                            </div>
+                            <p class="mb-3"
+                                data-en="A comprehensive tutorial on transfer learning techniques for computer vision tasks, covering pre-training strategies, fine-tuning approaches, and domain adaptation methods."
+                                data-zh="关于计算机视觉任务迁移学习技术的全面教程，涵盖预训练策略、微调方法和领域适应方法。">A comprehensive tutorial on transfer
+                                learning techniques for computer vision tasks, covering pre-training strategies,
+                                fine-tuning approaches, and domain adaptation methods.</p>
+                            <p class="text-sm text-gray-600" data-en="Seattle, WA, USA" data-zh="美国华盛顿州西雅图">Seattle, WA,
+                                USA</p>
+                        </div>
+                        <!-- Talk 5 -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-1" data-en="Ethical AI Development"
+                                        data-zh="伦理AI开发">Ethical AI Development</h3>
+                                    <p class="text-primary" data-en="World Economic Forum" data-zh="世界经济论坛">World
+                                        Economic Forum</p>
+                                </div>
+                                <div class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                                    Jan 2024
+                                </div>
+                            </div>
+                            <p class="mb-3"
+                                data-en="A panel discussion on the ethical considerations in AI development, focusing on fairness, accountability, transparency, and privacy in machine learning systems."
+                                data-zh="关于AI开发中伦理考虑的专题讨论，重点关注机器学习系统中的公平性、问责制、透明度和隐私。">A panel discussion on the ethical
+                                considerations in AI development, focusing on fairness, accountability, transparency,
+                                and privacy in machine learning systems.</p>
+                            <p class="text-sm text-gray-600" data-en="Davos, Switzerland" data-zh="瑞士达沃斯">Davos,
+                                Switzerland</p>
+                        </div>
+                        <!-- Talk 6 -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-1" data-en="AI for Scientific Discovery"
+                                        data-zh="用于科学发现的AI">AI for Scientific Discovery</h3>
+                                    <p class="text-primary" data-en="MIT Technology Review EmTech"
+                                        data-zh="MIT技术评论EmTech">MIT Technology Review EmTech</p>
+                                </div>
+                                <div class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                                    Nov 2023
+                                </div>
+                            </div>
+                            <p class="mb-3"
+                                data-en="An exploration of how AI is accelerating scientific discovery across disciplines, from drug discovery to materials science and beyond."
+                                data-zh="探索AI如何加速各学科的科学发现，从药物发现到材料科学等。">An exploration of how AI is accelerating
+                                scientific discovery across disciplines, from drug discovery to materials science and
+                                beyond.</p>
+                            <p class="text-sm text-gray-600" data-en="Cambridge, MA, USA" data-zh="美国马萨诸塞州剑桥">Cambridge,
+                                MA, USA</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- GROUP Section -->
+            <section id="group" class="py-16 bg-white rounded-lg shadow-sm">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold mb-12 text-center font-poppins" data-en="Research Group"
+                        data-zh="研究团队">Research Group</h2>
+                    <!-- Group Categories -->
+                    <!-- 定义一个包含首席研究员信息的div容器，底部有12个单位的边距 -->
+                    <div class="mb-12">
+                        <!-- 定义一个标题，字体大小为xl，加粗，底部有6个单位的边距，居中对齐 -->
+                        <!-- data-en和data-zh属性用于存储英文和中文的标题内容 -->
+                        <h3 class="text-xl font-semibold mb-6 text-center" data-en="Principal Investigator"
+                            data-zh="首席研究员">Principal Investigator</h3>
+                        <!-- 定义一个flex布局的div容器，内容居中对齐 -->
+                        <div class="flex justify-center">
+                            <!-- 定义一个宽度为48个单位的div容器，内容居中对齐 -->
+                            <div class="w-48 text-center">
+                                <!-- 定义一个包含图片的div容器，底部有3个单位的边距，水平居中 -->
+                                <div class="mb-3 mx-auto">
+                                    <!-- 图片标签，设置图片源为assets/prof3.png，替代文本为Jonathan Blake -->
+                                    <!-- 图片宽度为32个单位，高度为32个单位，圆角，对象覆盖，水平居中 -->
+                                    <img src="assets/prof3.png" alt="Jonathan Blake"
+                                        class="w-32 h-32 rounded-full object-cover mx-auto">
+                                </div>
+                                <!-- 定义一个标题，字体加粗，内容为Dr. Jonathan Blake -->
+                                <!-- data-en和data-zh属性用于存储英文和中文的标题内容 -->
+                                <h4 class="font-semibold" data-en="Dr. Jonathan Blake" data-zh="乔纳森·布莱克博士">Dr. Jonathan
+                                    Blake</h4>
+                                <!-- 定义一个段落，字体大小为sm，颜色为灰色，内容为Associate Professor -->
+                                <!-- data-en和data-zh属性用于存储英文和中文的段落内容 -->
+                                <p class="text-sm text-gray-600" data-en="Associate Professor" data-zh="副教授">Associate
+                                    Professor</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PhD Students -->
+                    <div class="mb-12">
+                        <h3 class="text-xl font-semibold mb-6 text-center" data-en="PhD Students" data-zh="博士生">PhD
+                            Students</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                            <!-- PhD Student 1 -->
+                            <!-- 创建一个居中的文本容器 -->
+                            <div class="text-center">
+                                <!-- 创建一个底部外边距为3的容器 -->
+                                <div class="mb-3">
+                                    <!-- 显示图片，图片源为assets/female1.jpg，替代文本为Sarah Chen，图片宽度高度均为28，圆角，对象覆盖，水平居中 -->
+                                    <img src="assets/female1.jpg" alt="Sarah Chen"
+                                        class="w-28 h-28 rounded-full object-cover mx-auto">
+                                </div>
+                                <!-- 显示标题，字体加粗，英文内容为Sarah Chen，中文内容为陈莎拉 -->
+                                <h4 class="font-semibold" data-en="Sarah Chen" data-zh="陈莎拉">Sarah Chen</h4>
+                                <!-- 显示文本，字体大小为小，颜色为灰色，英文内容为NLP & Healthcare，中文内容为自然语言处理与医疗 -->
+                                <p class="text-sm text-gray-600" data-en="NLP & Healthcare" data-zh="自然语言处理与医疗">NLP &
+                                    Healthcare</p>
+                            </div>
+
+                            <!-- PhD Student 2 -->
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <img src="assets/male1.jpg" alt="Michael Rodriguez"
+                                        class="w-28 h-28 rounded-full object-cover mx-auto">
+                                </div>
+                                <h4 class="font-semibold" data-en="Michael Rodriguez" data-zh="迈克尔·罗德里格斯">Michael
+                                    Rodriguez</h4>
+                                <p class="text-sm text-gray-600" data-en="Computer Vision" data-zh="计算机视觉">Computer
+                                    Vision</p>
+                            </div>
+                            <!-- PhD Student 3 -->
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <img src="assets/female2.jpg" alt="Emily Johnson"
+                                        class="w-28 h-28 rounded-full object-cover mx-auto">
+                                </div>
+                                <h4 class="font-semibold" data-en="Emily Johnson" data-zh="艾米丽·约翰逊">Emily Johnson</h4>
+                                <p class="text-sm text-gray-600" data-en="Ethical AI" data-zh="伦理AI">Ethical AI</p>
+                            </div>
+                            <!-- PhD Student 4 -->
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <img src="assets/male2.jpg" alt="Raj Patel"
+                                        class="w-28 h-28 rounded-full object-cover mx-auto">
+                                </div>
+                                <h4 class="font-semibold" data-en="Raj Patel" data-zh="拉吉·帕特尔">Raj Patel</h4>
+                                <p class="text-sm text-gray-600" data-en="Reinforcement Learning" data-zh="强化学习">
+                                    Reinforcement Learning</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Masters Students -->
+                    <div class="mb-12">
+                        <h3 class="text-xl font-semibold mb-6 text-center" data-en="Masters Students" data-zh="硕士生">
+                            Masters Students</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                            <!-- Masters Student 1 -->
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <img src="assets/female3.jpg" alt="Lisa Wang"
+                                        class="w-28 h-28 rounded-full object-cover mx-auto">
+                                </div>
+                                <h4 class="font-semibold" data-en="Lisa Wang" data-zh="王丽莎">Lisa Wang</h4>
+                                <p class="text-sm text-gray-600" data-en="ML for Robotics" data-zh="机器人学习">ML for
+                                    Robotics</p>
+                            </div>
+                            <!-- Masters Student 2 -->
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <img src="assets/male3.jpg" alt="James Kim"
+                                        class="w-28 h-28 rounded-full object-cover mx-auto">
+                                </div>
+                                <h4 class="font-semibold" data-en="James Kim" data-zh="詹姆斯·金">James Kim</h4>
+                                <p class="text-sm text-gray-600" data-en="NLP & Dialogue Systems" data-zh="自然语言处理与对话系统">
+                                    NLP & Dialogue Systems</p>
+                            </div>
+                            <!-- Masters Student 3 -->
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <img src="assets/female4.jpg" alt="Sofia Martinez"
+                                        class="w-28 h-28 rounded-full object-cover mx-auto">
+                                </div>
+                                <h4 class="font-semibold" data-en="Sofia Martinez" data-zh="索菲亚·马丁内斯">Sofia Martinez
+                                </h4>
+                                <p class="text-sm text-gray-600" data-en="Computer Vision" data-zh="计算机视觉">Computer
+                                    Vision</p>
+                            </div>
+                            <!-- Masters Student 4 -->
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <img src="assets/male4.jpg" alt="Daniel Lee"
+                                        class="w-28 h-28 rounded-full object-cover mx-auto">
+                                </div>
+                                <h4 class="font-semibold" data-en="Daniel Lee" data-zh="丹尼尔·李">Daniel Lee</h4>
+                                <p class="text-sm text-gray-600" data-en="Deep Learning" data-zh="深度学习">Deep Learning
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Research Staff -->
+                    <div>
+                        <h3 class="text-xl font-semibold mb-6 text-center" data-en="Research Staff" data-zh="研究人员">
+                            Research Staff</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                            <!-- Staff 1 -->
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <img src="assets/w1.jpg" alt="Dr. Amanda Wilson"
+                                        class="w-28 h-28 rounded-full object-cover mx-auto">
+                                </div>
+                                <h4 class="font-semibold" data-en="Dr. Amanda Wilson" data-zh="阿曼达·威尔逊博士">Dr. Amanda
+                                    Wilson</h4>
+                                <p class="text-sm text-gray-600" data-en="Research Scientist" data-zh="研究科学家">Research
+                                    Scientist</p>
+                            </div>
+                            <!-- Staff 2 -->
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <img src="assets/m1.jpg" alt="Dr. Thomas Brown"
+                                        class="w-28 h-28 rounded-full object-cover mx-auto">
+                                </div>
+                                <h4 class="font-semibold" data-en="Dr. Thomas Brown" data-zh="托马斯·布朗博士">Dr. Thomas Brown
+                                </h4>
+                                <p class="text-sm text-gray-600" data-en="Senior Engineer" data-zh="高级工程师">Senior
+                                    Engineer</p>
+                            </div>
+                            <!-- Staff 3 -->
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <img src="assets/w2.jpg" alt="Jennifer Davis"
+                                        class="w-28 h-28 rounded-full object-cover mx-auto">
+                                </div>
+                                <h4 class="font-semibold" data-en="Jennifer Davis" data-zh="珍妮弗·戴维斯">Jennifer Davis</h4>
+                                <p class="text-sm text-gray-600" data-en="Lab Manager" data-zh="实验室经理">Lab Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- AWARDS Section -->
+            <section id="awards" class="py-16">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold mb-12 text-center font-poppins" data-en="Awards & Honors"
+                        data-zh="奖项与荣誉">Awards & Honors</h2>
+                    <div class="max-w-3xl mx-auto space-y-6">
+                        <!-- Award 1 -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <!-- 使用flex布局，在移动端为垂直布局，在桌面端为水平布局，并居中对齐 -->
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <!-- 奖项名称，使用data-en和data-zh属性存储英文和中文翻译 -->
+                                <h3 class="text-xl font-semibold" data-en="NSF CAREER Award" data-zh="NSF CAREER奖">NSF
+                                    CAREER Award</h3>
+                                <!-- 奖项年份 -->
+                                <p class="text-primary font-medium">2025</p>
+                            </div>
+                            <!-- 奖项描述，使用data-en和data-zh属性存储英文和中文翻译 -->
+                            <p data-en="Awarded for the research proposal on 'Interpretable Deep Learning for Scientific Discovery'. This prestigious award supports early-career faculty who have the potential to serve as academic role models in research and education."
+                                data-zh="因“ 面向科学发现的可解释深度学习”研究提案而获奖。这一著名奖项支持在研究和教育方面有潜力成为学术榜样的早期职业教师。">Awarded for the
+                                research proposal on "Interpretable Deep Learning for Scientific Discovery". This
+                                prestigious award supports early-career faculty who have the potential to serve as
+                                academic role models in research and education.</p>
+                        </div>
+                        <!-- Award 2 -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <h3 class="text-xl font-semibold" data-en="Google Faculty Research Award"
+                                    data-zh="谷歌教师研究奖">Google Faculty Research Award</h3>
+                                <p class="text-primary font-medium">2024</p>
+                            </div>
+                            <p data-en="Received for innovative research in efficient deep learning algorithms. The award supports cutting-edge research in computer science and related fields."
+                                data-zh="因高效深度学习算法的创新研究而获得。该奖项支持计算机科学和相关领域的前沿研究。">Received for innovative research in
+                                efficient deep learning algorithms. The award supports cutting-edge research in computer
+                                science and related fields.</p>
+                        </div>
+                        <!-- Award 3 -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <h3 class="text-xl font-semibold" data-en="Outstanding Paper Award, NeurIPS"
+                                    data-zh="NeurIPS杰出论文奖">Outstanding Paper Award, NeurIPS</h3>
+                                <p class="text-primary font-medium">2023</p>
+                            </div>
+                            <p data-en="Awarded for the paper 'Efficient Attention Mechanisms for Large-Scale Transformers', which introduced novel techniques to reduce the computational complexity of attention mechanisms in transformer models."
+                                data-zh="因论文“ 大型Transformer的高效注意力机制”而获奖，该论文引入了新技术，降低了transformer模型中注意力机制的计算复杂度。">Awarded
+                                for the paper "Efficient Attention Mechanisms for Large-Scale Transformers", which
+                                introduced novel techniques to reduce the computational complexity of attention
+                                mechanisms in transformer models.</p>
+                        </div>
+                        <!-- Award 4 -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <h3 class="text-xl font-semibold" data-en="University Teaching Excellence Award"
+                                    data-zh="大学教学卓越奖">University Teaching Excellence Award</h3>
+                                <p class="text-primary font-medium">2023</p>
+                            </div>
+                            <p data-en="Recognized for outstanding contributions to teaching and curriculum development in artificial intelligence and machine learning courses."
+                                data-zh="因在人工智能和机器学习课程的教学和课程开发方面做出的杰出贡献而获得认可。">Recognized for outstanding contributions
+                                to teaching and curriculum development in artificial intelligence and machine learning
+                                courses.</p>
+                        </div>
+                        <!-- Award 5 -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <h3 class="text-xl font-semibold" data-en="MIT Technology Review 35 Innovators Under 35"
+                                    data-zh="MIT技术评论35位35岁以下创新者">MIT Technology Review 35 Innovators Under 35</h3>
+                                <p class="text-primary font-medium">2022</p>
+                            </div>
+                            <p data-en="Named as one of the world's top young innovators for pioneering work in making artificial intelligence more efficient and accessible."
+                                data-zh="因在使人工智能更高效、更易获取方面的开创性工作而被评为全球顶尖年轻创新者之一。">Named as one of the world's top young
+                                innovators for pioneering work in making artificial intelligence more efficient and
+                                accessible.</p>
+                        </div>
+                        <!-- Award 6 -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <h3 class="text-xl font-semibold" data-en="Best Demo Award, CVPR" data-zh="CVPR最佳演示奖">
+                                    Best Demo Award, CVPR</h3>
+                                <p class="text-primary font-medium">2021</p>
+                            </div>
+                            <p data-en="Awarded for the interactive demonstration 'Visual Understanding in Low-Resource Environments', which showcased real-time computer vision capabilities on edge devices."
+                                data-zh="因交互式演示“ 低资源环境中的视觉理解”而获奖，该演示展示了边缘设备上的实时计算机视觉能力。">Awarded for the interactive
+                                demonstration "Visual Understanding in Low-Resource Environments", which showcased
+                                real-time computer vision capabilities on edge devices.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- CONTACT Section -->
+            <section id="contact" class="py-16 bg-white rounded-lg shadow-sm">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold mb-12 text-center font-poppins" data-en="Contact" data-zh="联系方式">
+                        Contact</h2>
+                    <div class="flex flex-col md:flex-row gap-10">
+                        <!-- Left Column - Contact Form -->
+                        <div class="w-full md:w-1/2 px-6">
+                            <form class="space-y-6">
+                                <div>
+                                    <label for="name-academic" class="block mb-2 font-medium" data-en="Name"
+                                        data-zh="姓名">Name</label>
+                                    <input type="text" id="name-academic"
+                                        class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        required>
+                                </div>
+                                <div>
+                                    <label for="email-academic" class="block mb-2 font-medium" data-en="Email"
+                                        data-zh="邮箱">Email</label>
+                                    <input type="email" id="email-academic"
+                                        class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        required>
+                                </div>
+                                <div>
+                                    <label for="subject-academic" class="block mb-2 font-medium" data-en="Subject"
+                                        data-zh="主题">Subject</label>
+                                    <input type="text" id="subject-academic"
+                                        class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        required>
+                                </div>
+                                <div>
+                                    <label for="message-academic" class="block mb-2 font-medium" data-en="Message"
+                                        data-zh="信息">Message</label>
+                                    <textarea id="message-academic" rows="5"
+                                        class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        required></textarea>
+                                </div>
+                                <button type="submit"
+                                    class="px-6 py-3 bg-primary text-white rounded-button font-medium hover:bg-blue-600 transition-colors whitespace-nowrap"
+                                    data-en="Send Message" data-zh="发送信息">
+                                    Send Message
+                                </button>
+                            </form>
+                        </div>
+                        <!-- Right Column - Contact Info & Map -->
+                        <div class="w-full md:w-1/2 px-6">
+                            <div class="mb-8">
+                                <h3 class="text-xl font-semibold mb-4" data-en="Contact Information" data-zh="联系信息">
+                                    Contact Information</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <div
+                                            class="w-10 h-10 flex items-center justify-center bg-blue-100 text-primary rounded-full mr-4">
+                                            <i class="ri-mail-line ri-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium" data-en="Email" data-zh="邮箱">Email</h4>
+                                            <p>jblake@university.edu</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div
+                                            class="w-10 h-10 flex items-center justify-center bg-blue-100 text-primary rounded-full mr-4">
+                                            <i class="ri-phone-line ri-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium" data-en="Phone" data-zh="电话">Phone</h4>
+                                            <p>+1 (650) 123-4567</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div
+                                            class="w-10 h-10 flex items-center justify-center bg-blue-100 text-primary rounded-full mr-4">
+                                            <i class="ri-map-pin-line ri-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium" data-en="Office" data-zh="办公室">Office</h4>
+                                            <p data-en="Computer Science Building, Room 305, University Campus, Stanford, CA 94305"
+                                                data-zh="计算机科学大楼，305室, 大学校区, 斯坦福，加利福尼亚州 94305">Computer Science
+                                                Building, Room 305<br>University Campus<br>Stanford, CA 94305</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div
+                                            class="w-10 h-10 flex items-center justify-center bg-blue-100 text-primary rounded-full mr-4">
+                                            <i class="ri-time-line ri-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium" data-en="Office Hours" data-zh="办公时间">Office Hours
+                                            </h4>
+                                            <p data-en="Tuesday: 2:00 PM - 4:00 PM, Thursday: 10:00 AM - 12:00 PM, Or by appointment"
+                                                data-zh="周二: 下午2:00 - 4:00, 周四: 上午10:00 - 下午12:00, 或预约">Tuesday:
+                                                2:00 PM - 4:00 PM<br>Thursday: 10:00 AM - 12:00 PM<br>Or by appointment
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-64 rounded-lg overflow-hidden">
+                                <div class="w-full h-full"
+                                    style="background-image: url('assets/map.png'); background-position: center; background-size: cover;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-lg font-['Pacifico']">logo</p>
+                    <p class="text-sm text-gray-400 mt-2" data-en="© 2025 All Rights Reserved" data-zh="© 2025 版权所有">©
+                        2025 All Rights Reserved</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://scholar.google.com" target="_blank"
+                        class="w-8 h-8 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-full transition-colors">
+                        <i class="ri-google-fill"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank"
+                        class="w-8 h-8 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-full transition-colors">
+                        <i class="ri-linkedin-fill"></i>
+                    </a>
+                    <a href="https://github.com" target="_blank"
+                        class="w-8 h-8 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-full transition-colors">
+                        <i class="ri-github-fill"></i>
+                    </a>
+                    <a href="https://twitter.com" target="_blank"
+                        class="w-8 h-8 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-full transition-colors">
+                        <i class="ri-twitter-fill"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Variables
+            const navbar = document.getElementById('navbar');
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const versionToggle = document.getElementById('version-toggle');
+            const versionDropdown = document.getElementById('version-dropdown');
+            const careerBtn = document.getElementById('career-btn');
+            const academicBtn = document.getElementById('academic-btn');
+            const langToggle = document.getElementById('lang-toggle');
+            const themeToggle = document.getElementById('theme-toggle');
+            const mobileVersionToggle = document.getElementById('mobile-version-toggle');
+            const mobileLangToggle = document.getElementById('mobile-lang-toggle');
+            const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+            const careerVersion = document.getElementById('career-version');
+            const academicVersion = document.getElementById('academic-version');
+            const careerNav = document.querySelector('.career-nav');
+            const academicNav = document.querySelector('.academic-nav');
+            const careerMobileNav = document.querySelector('.career-mobile-nav');
+            const academicMobileNav = document.querySelector('.academic-mobile-nav');
+            const versionText = document.getElementById('version-text');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
+            const skillBars = document.querySelectorAll('.skill-bar');
+            // Project Slider
+            const slider = document.getElementById('project-slider');
+            const prevBtn = document.getElementById('prev-project');
+            const nextBtn = document.getElementById('next-project');
+            const indicators = document.querySelectorAll('[data-index]');
+            let currentSlide = 0;
+            const totalSlides = 4;
+            // Publication Filters
+            const publicationFilters = document.querySelectorAll('.publication-filter');
+            const publicationItems = document.querySelectorAll('.publication-item');
+            // Citation Chart
+            let citationChart;
+            if (document.getElementById('citation-chart')) {
+                citationChart = echarts.init(document.getElementById('citation-chart'));
+                const citationOption = {
+                    animation: false,
+                    grid: {
+                        top: 20,
+                        right: 20,
+                        bottom: 40,
+                        left: 50
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['2020', '2021', '2022', '2023', '2024'],
+                        axisLabel: {
+                            color: '#1f2937'
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            color: '#1f2937'
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                        borderColor: '#e5e7eb',
+                        textStyle: {
+                            color: '#1f2937'
+                        }
+                    },
+                    series: [{
+                        data: [420, 932, 1290, 2340, 3200],
+                        type: 'line',
+                        smooth: true,
+                        lineStyle: {
+                            width: 3,
+                            color: 'rgba(87, 181, 231, 1)'
+                        },
+                        itemStyle: {
+                            color: 'rgba(87, 181, 231, 1)'
+                        },
+                        areaStyle: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0,
+                                    color: 'rgba(87, 181, 231, 0.2)'
+                                }, {
+                                    offset: 1,
+                                    color: 'rgba(87, 181, 231, 0.05)'
+                                }]
+                            }
+                        },
+                        showSymbol: false
+                    }]
+                };
+                citationChart.setOption(citationOption);
+            }
+            // Initialize
+            let currentVersion = 'career';
+            let currentLang = 'en';
+            let isDarkMode = false;
+            // Mobile Menu Toggle
+            menuToggle.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Version Toggle Dropdown
+            versionToggle.addEventListener('click', function (e) {
+                e.stopPropagation();
+                versionDropdown.classList.toggle('hidden');
+            });
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function () {
+                versionDropdown.classList.add('hidden');
+            });
+            // Version Selection
+            careerBtn.addEventListener('click', function () {
+                switchVersion('career');
+                versionDropdown.classList.add('hidden');
+            });
+            academicBtn.addEventListener('click', function () {
+                switchVersion('academic');
+                versionDropdown.classList.add('hidden');
+            });
+            // Mobile Version Toggle
+            mobileVersionToggle.addEventListener('click', function () {
+                if (currentVersion === 'career') {
+                    switchVersion('academic');
+                } else {
+                    switchVersion('career');
+                }
+            });
+            // Language Toggle
+            langToggle.addEventListener('click', function () {
+                toggleLanguage();
+            });
+            mobileLangToggle.addEventListener('click', function () {
+                toggleLanguage();
+            });
+            // Theme Toggle
+            themeToggle.addEventListener('click', function () {
+                toggleTheme();
+            });
+            mobileThemeToggle.addEventListener('click', function () {
+                toggleTheme();
+            });
+            // Smooth Scrolling for Nav Links
+            navLinks.forEach(link => {
+                link.addEventListener('click', smoothScroll);
+            });
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    smoothScroll(e);
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+            // Project Slider Controls
+            if (prevBtn && nextBtn) {
+                prevBtn.addEventListener('click', function () {
+                    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                    updateSlider();
+                });
+                nextBtn.addEventListener('click', function () {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    updateSlider();
+                });
+                indicators.forEach(indicator => {
+                    indicator.addEventListener('click', function () {
+                        currentSlide = parseInt(this.getAttribute('data-index'));
+                        updateSlider();
+                    });
+                });
+            }
+            // Publication Filters
+            if (publicationFilters.length > 0) {
+                publicationFilters.forEach(filter => {
+                    filter.addEventListener('click', function () {
+                        const category = this.getAttribute('data-filter');
+                        // Update active filter
+                        publicationFilters.forEach(f => {
+                            f.classList.remove('bg-primary', 'text-white');
+                            f.classList.add('bg-gray-200', 'text-gray-700');
+                        });
+                        this.classList.remove('bg-gray-200', 'text-gray-700');
+                        this.classList.add('bg-primary', 'text-white');
+                        // Filter publications
+                        publicationItems.forEach(item => {
+                            if (category === 'all' || item.getAttribute('data-category').includes(category)) {
+                                item.style.display = 'block';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+            }
+            // Scroll Event for Navbar and Skill Bars
+            window.addEventListener('scroll', function () {
+                // Sticky Navbar
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-lg');
+                    navbar.classList.remove('shadow-md');
+                } else {
+                    navbar.classList.remove('shadow-lg');
+                    navbar.classList.add('shadow-md');
+                }
+                // Animate Skill Bars
+                if (isInViewport(document.getElementById('about'))) {
+                    skillBars.forEach(bar => {
+                        const width = bar.getAttribute('data-width');
+                        bar.style.width = width;
+                    });
+                }
+                // Highlight active nav link
+                highlightActiveNavLink();
+            });
+            // Functions
+            function switchVersion(version) {
+                currentVersion = version;
+                if (version === 'career') {
+                    careerVersion.style.display = 'block';
+                    academicVersion.style.display = 'none';
+                    careerNav.style.display = 'flex';
+                    academicNav.style.display = 'none';
+                    careerMobileNav.style.display = 'block';
+                    academicMobileNav.style.display = 'none';
+                    versionText.textContent = 'Career';
+                    mobileVersionToggle.textContent = 'Career';
+                    careerBtn.classList.add('text-primary');
+                    academicBtn.classList.remove('text-primary');
+                } else {
+                    careerVersion.style.display = 'none';
+                    academicVersion.style.display = 'block';
+                    careerNav.style.display = 'none';
+                    academicNav.style.display = 'flex';
+                    careerMobileNav.style.display = 'none';
+                    academicMobileNav.style.display = 'block';
+                    versionText.textContent = 'Academic';
+                    mobileVersionToggle.textContent = 'Academic';
+                    careerBtn.classList.remove('text-primary');
+                    academicBtn.classList.add('text-primary');
+                    // Resize citation chart if switching to academic
+                    if (citationChart) {
+                        setTimeout(() => {
+                            citationChart.resize();
+                        }, 100);
+                    }
+                }
+                // Scroll to top when switching versions
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            function toggleLanguage() {
+                currentLang = currentLang === 'en' ? 'zh' : 'en';
+                // Update toggle button text
+                langToggle.textContent = currentLang.toUpperCase();
+                mobileLangToggle.textContent = currentLang.toUpperCase();
+                // Update all text elements with data-en and data-zh attributes
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    el.textContent = el.getAttribute(`data-${currentLang}`);
+                });
+            }
+            /**
+             * 切换主题模式
+             * 该函数会根据当前的主题模式，更新页面元素的样式和图标显示
+             */
+            function toggleTheme() {
+                isDarkMode = !isDarkMode;
+                if (isDarkMode) {
+                    // 深色模式
+                    // 给 body 元素添加 dark-mode 类，用于可能的全局样式控制
+                    document.body.classList.add('dark-mode');
+                    // 更新桌面端主题切换按钮的图标为月亮图标
+                    themeToggle.innerHTML = '<i class="ri-moon-line ri-lg"></i>';
+                    // 更新移动端主题切换按钮的图标为月亮图标
+                    mobileThemeToggle.innerHTML = '<i class="ri-moon-line ri-lg"></i>';
+                    // Update dark mode styles
+                    // 更新背景颜色为深色模式对应的颜色
+                    document.querySelectorAll('.bg-white').forEach(el => {
+                        // 移除浅色模式的背景白色类
+                        el.classList.remove('bg-white');
+                        // 添加深色模式的背景深灰色类
+                        el.classList.add('bg-gray-800');
+                    });
+                    document.querySelectorAll('.bg-gray-50').forEach(el => {
+                        // 移除浅色模式的背景浅灰色类
+                        el.classList.remove('bg-gray-50');
+                        // 添加深色模式的背景中灰色类
+                        el.classList.add('bg-gray-700');
+                    });
+                    document.querySelectorAll('.bg-gray-100').forEach(el => {
+                        // 移除浅色模式的背景浅灰色类
+                        el.classList.remove('bg-gray-100');
+                        // 添加深色模式的背景中灰色类
+                        el.classList.add('bg-gray-600');
+                    });
+                    // 更新文字颜色为深色模式对应的颜色
+                    document.querySelectorAll('.text-gray-600').forEach(el => {
+                        // 移除浅色模式的文字中灰色类
+                        el.classList.remove('text-gray-600');
+                        // 添加深色模式的文字浅灰色类
+                        el.classList.add('text-gray-300');
+                    });
+                    document.querySelectorAll('.text-gray-800').forEach(el => {
+                        // 移除浅色模式的文字深灰色类
+                        el.classList.remove('text-gray-800');
+                        // 添加深色模式的文字白色类
+                        el.classList.add('text-gray-100');
+                    });
+                    // 更新边框颜色为深色模式对应的颜色
+                    document.querySelectorAll('.border-gray-300').forEach(el => {
+                        // 移除浅色模式的边框浅灰色类
+                        el.classList.remove('border-gray-300');
+                        // 添加深色模式的边框中灰色类
+                        el.classList.add('border-gray-600');
+                    });
+                    // 更新鼠标悬停背景颜色为深色模式对应的颜色
+                    document.querySelectorAll('.hover\\:bg-gray-100').forEach(el => {
+                        // 移除浅色模式的鼠标悬停背景浅灰色类
+                        el.classList.remove('hover:bg-gray-100');
+                        // 添加深色模式的鼠标悬停背景中灰色类
+                        el.classList.add('hover:bg-gray-600');
+                    });
+                    document.querySelectorAll('.hover\\:bg-gray-200').forEach(el => {
+                        // 移除浅色模式的鼠标悬停背景中灰色类
+                        el.classList.remove('hover:bg-gray-200');
+                        // 添加深色模式的鼠标悬停背景深灰色类
+                        el.classList.add('hover:bg-gray-700');
+                    });
+                } else {
+                    // 如果切换到浅色模式
+                    // 移除 body 元素的 dark-mode 类
+                    document.body.classList.remove('dark-mode');
+                    // 更新桌面端主题切换按钮的图标为太阳图标
+                    themeToggle.innerHTML = '<i class="ri-sun-line ri-lg"></i>';
+                    // 更新移动端主题切换按钮的图标为太阳图标
+                    mobileThemeToggle.innerHTML = '<i class="ri-sun-line ri-lg"></i>';
+                    // Restore light mode styles
+                    // 恢复背景颜色为浅色模式对应的颜色
+                    document.querySelectorAll('.bg-gray-800').forEach(el => {
+                        // 移除深色模式的背景深灰色类
+                        el.classList.remove('bg-gray-800');
+                        // 添加浅色模式的背景白色类
+                        el.classList.add('bg-white');
+                    });
+                    document.querySelectorAll('.bg-gray-700').forEach(el => {
+                        // 移除深色模式的背景中灰色类
+                        el.classList.remove('bg-gray-700');
+                        // 添加浅色模式的背景浅灰色类
+                        el.classList.add('bg-gray-50');
+                    });
+                    document.querySelectorAll('.bg-gray-600').forEach(el => {
+                        // 移除深色模式的背景中灰色类
+                        el.classList.remove('bg-gray-600');
+                        // 添加浅色模式的背景浅灰色类
+                        el.classList.add('bg-gray-100');
+                    });
+                    // 恢复文字颜色为浅色模式对应的颜色
+                    document.querySelectorAll('.text-gray-300').forEach(el => {
+                        // 移除深色模式的文字浅灰色类
+                        el.classList.remove('text-gray-300');
+                        // 添加浅色模式的文字中灰色类
+                        el.classList.add('text-gray-600');
+                    });
+                    document.querySelectorAll('.text-gray-100').forEach(el => {
+                        // 移除深色模式的文字白色类
+                        el.classList.remove('text-gray-100');
+                        // 添加浅色模式的文字深灰色类
+                        el.classList.add('text-gray-800');
+                    });
+                    // 恢复边框颜色为浅色模式对应的颜色
+                    document.querySelectorAll('.border-gray-600').forEach(el => {
+                        // 移除深色模式的边框中灰色类
+                        el.classList.remove('border-gray-600');
+                        // 添加浅色模式的边框浅灰色类
+                        el.classList.add('border-gray-300');
+                    });
+                    // 恢复鼠标悬停背景颜色为浅色模式对应的颜色
+                    document.querySelectorAll('.hover\\:bg-gray-600').forEach(el => {
+                        // 移除深色模式的鼠标悬停背景中灰色类
+                        el.classList.remove('hover:bg-gray-600');
+                        // 添加浅色模式的鼠标悬停背景浅灰色类
+                        el.classList.add('hover:bg-gray-100');
+                    });
+                    document.querySelectorAll('.hover\\:bg-gray-700').forEach(el => {
+                        // 移除深色模式的鼠标悬停背景深灰色类
+                        el.classList.remove('hover:bg-gray-700');
+                        // 添加浅色模式的鼠标悬停背景中灰色类
+                        el.classList.add('hover:bg-gray-200');
+                    });
+                }
+                // Update chart theme if it exists
+                // Update chart theme if it exists
+                if (citationChart) {
+                    const textColor = isDarkMode ? '#f3f4f6' : '#1f2937';
+                    citationChart.setOption({
+                        xAxis: {
+                            axisLabel: {
+                                color: textColor
+                            }
+                        },
+                        yAxis: {
+                            axisLabel: {
+                                color: textColor
+                            }
+                        }
+                    });
+                }
+            }
+            function smoothScroll(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const offsetTop = targetElement.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            function updateSlider() {
+                const translateValue = -currentSlide * 100 + '%';
+                slider.style.transform = `translateX(${translateValue})`;
+                // Update indicators
+                indicators.forEach((indicator, index) => {
+                    if (index === currentSlide) {
+                        indicator.classList.remove('bg-gray-300');
+                        indicator.classList.add('bg-primary');
+                    } else {
+                        indicator.classList.remove('bg-primary');
+                        indicator.classList.add('bg-gray-300');
+                    }
+                });
+            }
+            function isInViewport(element) {
+                if (!element) return false;
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.bottom >= 0
+                );
+            }
+            function highlightActiveNavLink() {
+                // Get current scroll position
+                const scrollPosition = window.scrollY;
+                // Get all sections
+                const sections = document.querySelectorAll('section');
+                // Find the current section
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionBottom = sectionTop + section.offsetHeight;
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                        const id = section.getAttribute('id');
+                        // Remove active class from all links
+                        navLinks.forEach(link => {
+                            link.classList.remove('text-primary', 'active');
+                        });
+                        mobileNavLinks.forEach(link => {
+                            link.classList.remove('text-primary', 'active');
+                        });
+                        // Add active class to current link
+                        const activeLinks = document.querySelectorAll(`a[href="#${id}"]`);
+                        activeLinks.forEach(link => {
+                            link.classList.add('text-primary', 'active');
+                        });
+                    }
+                });
+            }
+            // Initialize the page
+            highlightActiveNavLink();
+            // Resize event for the chart
+            window.addEventListener('resize', function () {
+                if (citationChart) {
+                    citationChart.resize();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
