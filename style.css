@@ -1,139 +1,119 @@
-/* Reset and base styles */
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", sans-serif;
-  scroll-behavior: smooth;
-  background: #f4f4f4;
-  color: #222;
-}
+/* 强制所有以 ri- 开头的类名的伪元素内容为 \f3c2，可能用于图标替换 */
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
 
-/* Header with parallax background */
-.parallax-header {
-  background-image: url('./imgs/fudan-background.png');
-  height: 100vh;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  color: black;
-  text-align: center; 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 20px;
-  background-blend-mode: lighten
-}
+        /* 全局样式，设置页面字体为 Inter 无衬线字体，同时使页面滚动具有平滑效果 */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
 
-.name-title {
-  font-size: 3em;
-  margin: 0.2em 0 0;
-}
+        /* 定义类名为 font-poppins 的元素使用 Poppins 无衬线字体 */
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
 
-.subtitle {
-  font-size: 1.2em;
-  color: dimgray;
-  margin: 0.5em 0 1em;
-  font-weight: 700;
-}
+        /* 技能进度条样式，设置宽度变化的过渡动画，时长 1.5 秒，缓动函数为 ease-in-out */
+        .skill-bar {
+            transition: width 1.5s ease-in-out;
+        }
 
-.profile-pic-container {
-  margin-top: 40px;
-}
+        /* 时间轴节点样式，使用伪元素创建一个圆形节点 */
+        .timeline-dot::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            left: -8px;
+            top: 0;
+        }
 
-.profile-pic {
-  width: 160px;
-  height: 160px;
-  border-radius: 20px;
-  border: 3px solid white;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto;
-}
+        /* 时间轴线样式，使用伪元素创建一条垂直线 */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: #e5e7eb;
+            left: 0;
+            top: 0;
+        }
 
-/* Sticky navbar */
-.navbar {
-  position: sticky;
-  top: 0;
-  background-color: rgba(255, 255, 255, 0.95);
-  display: flex;
-  justify-content: center;
-  gap: 2em;
-  padding: 1em 0;
-  z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+        /* 幻灯片样式，设置幻灯片切换时的过渡动画，时长 0.5 秒，缓动函数为 ease */
+        .slide {
+            transition: transform 0.5s ease;
+        }
 
-.navbar a {
-  color: #333;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.2s;
-}
+        /* 深色模式下的全局样式，设置背景颜色和文字颜色 */
+        .dark-mode {
+            background-color: #1f2937;
+            color: #f3f4f6;
+        }
 
-.navbar a:hover {
-  color: #007acc;
-}
+        /* 深色模式下卡片组件的样式，设置背景颜色和边框颜色 */
+        .dark-mode .card {
+            background-color: #374151;
+            border-color: #4b5563;
+        }
 
-/* Sections */
-.content-section {
-  padding: 80px 40px;
-  background-color: white;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-}
+        /* 深色模式下导航链接的样式，设置文字颜色 */
+        .dark-mode .nav-link {
+            color: #f3f4f6;
+        }
 
-h2 {
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  font-size: 1.6em;
-}
+        /* 深色模式下激活状态的导航链接样式，设置文字颜色 */
+        .dark-mode .nav-link.active {
+            color: #3b82f6;
+        }
 
-/* Two-column layout for sections */
-.section-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2em;
-  align-items: start;
-  margin-top: 1em;
-}
+        /* 深色模式下输入框的样式，设置背景颜色、边框颜色和文字颜色 */
+        .dark-mode .input-field {
+            background-color: #374151;
+            border-color: #4b5563;
+            color: #f3f4f6;
+        }
 
-.left-column {
-  font-size: 1em;
-}
+        /* 移除 number 类型输入框的上下箭头 */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
 
-.right-column {
-  text-align: right;
-  font-size: 0.95em;
-  color: #555;
-}
+        /* 版本切换进入动画的初始状态，设置透明度为 0 并向下偏移 20px */
+        .version-enter {
+            opacity: 0;
+            transform: translateY(20px);
+        }
 
-/* Parallax section styling */
-.parallax {
-  background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
-  background-attachment: fixed;
-}
+        /* 版本切换进入动画的活动状态，设置透明度为 1 并回到初始位置，动画时长 0.5 秒 */
+        .version-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s, transform 0.5s;
+        }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .section-grid {
-    grid-template-columns: 1fr;
-  }
+        /* 版本切换退出动画的初始状态，设置透明度为 1 */
+        .version-exit {
+            opacity: 1;
+        }
 
-  .right-column {
-    text-align: left;
-    margin-top: 1em;
-  }
+        /* 版本切换退出动画的活动状态，设置透明度为 0，动画时长 0.5 秒 */
+        .version-exit-active {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
 
-  .navbar {
-    flex-wrap: wrap;
-    gap: 1em;
-  }
+        /* 鼠标悬停在个人头像容器上时，修改头像边框颜色并放大 1.05 倍 */
+        .profile-img-container:hover .profile-img-border {
+            border-color: #3b82f6;
+            transform: scale(1.05);
+        }
 
-  .name-title {
-    font-size: 2.2em;
-  }
-
-  .subtitle {
-    font-size: 1em;
-  }
-}
+        /* 个人头像边框样式，设置所有属性变化的过渡动画，时长 0.3 秒，缓动函数为 ease */
+        .profile-img-border {
+            transition: all 0.3s ease;
+        }

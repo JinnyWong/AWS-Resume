@@ -6,21 +6,24 @@ Final project for Fudan University "Cloud Computing and Virtualization Technolog
 <br>
 
 ## Demo
-![](./imgs/resume-demo.gif)
+![](./assets/resume-demo.gif)
 
 
 <br>
 
 ## Features 
-- Frontend design with HTML and CSS
-- Online resume hosted in `AWS S3` bucket
+- Frontend design with HTML, CSS and JavaScript.
+- Support Chinese/English language toggle, light/dark mode toggle.
+- Online resume hosted in `AWS S3` bucket.
 - Use `AWS CloudFront` for global content distribution (edge location, improved latency and security).
-- Setting up custom domains with `AWS Route53` (improves accessibility)
+- Setting up custom domains with `AWS Route53` (improves accessibility).
 - IAM setup with permissions for S3, CloudFront, Route 53.
 
 <br>
 
 ## Usage
+
+
 
 <br>
 
